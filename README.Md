@@ -17,3 +17,37 @@ En effet, _l'hypothèse d'indépendance_ des variables permet de se contenter de
 ### Classification
 
 XIA-NB is a C++ implementation of Naive Bayes Classifier, which is a well-known generative classification algorithm for applications such as text classification
+
+
+### Structures de phrase
+
+        1.1.1. Les phrases simples
+        1.1.2. Les phrases composées
+        1.1.3. Les phrases complexes
+
+    La phrase simple est appelée proposition indépendante. Elle n'est reliée à aucune autre proposition.
+    Parmi les phrases simples, on trouve la phrase verbale et la phrase nominale.
+
+    » A. La phrase verbale
+    Elle contient un groupe sujet, un verbe conjugué et un ou plusieurs compléments.
+    Exemple : Ce soir, nous dînons au restaurant.
+
+    » B. La phrase nominale
+    Elle ne comporte aucun verbe conjugué.
+    Exemple : Premier plat, première déception !
+
+
+    La phrase composée est constituée de deux propositions indépendantes, coordonnées ou juxtaposées, et contient donc deux verbes conjugués.
+
+    ## A. Deux propositions coordonnées
+    Quand la phrase est composée de deux propositions coordonnées, on utilise une conjonction de coordination pour relier les deux propositions.
+    Exemple : Ce plat est appétissant mais je n'ai plus faim.
+
+    ## B. Deux propositions juxtaposées 
+    Quand la phrase est composée de deux propositions juxtaposées, on utilise un signe de ponctuation entre les propositions.
+    Exemple : Nous sommes restés amis, nous nous appelons souvent.
+
+    La phrase complexe contient plusieurs verbes conjugués. Elle est constituée d'une proposition principale et d'une ou plusieurs autres propositions subordonnées que nous étudierons dans ces rubriques :
+
+    - La proposition subordonnée relative
+    - La proposition subordonnée conjonctive
