@@ -1,0 +1,19 @@
+# Classification Bayesienne
+
+La classification naïve bayésienne est un _type de classification bayésienne probabiliste simple_ basée sur le théorème de Bayes avec une forte indépendance (dite naïve) des hypothèses. Elle met en œuvre un classifieur bayésien naïf, ou classifieur naïf de Bayes, appartenant à la famille des classifieurs linéaires.
+
+Selon la nature de chaque modèle probabiliste, _les classifieurs bayésiens naïfs_ peuvent être entraînés efficacement dans un contexte _d'apprentissage supervisé_.
+Dans beaucoup d'applications pratiques, l'estimation des paramètres pour les modèles bayésiens naïfs repose sur le maximum de vraisemblance. Autrement dit, il est possible de travailler _avec le modèle bayésien naïf sans se préoccuper de probabilité bayésienne ou utiliser les méthodes bayésiennes._
+
+Malgré leur _modèle de conception « naïf » et ses hypothèses de base extrêmement simplistes_, les classifieurs bayésiens naïfs ont fait preuve d'une efficacité plus que suffisante dans beaucoup de situations réelles complexes. En 2004, un article a montré qu'il existe des _raisons théoriques derrière cette efficacité inattendue_. Toutefois, une autre étude de 2006 montre que des approches plus récentes (arbres renforcés, forêts aléatoires) _permettent d'obtenir de meilleurs résultats._
+
+_L'avantage du classifieur bayésien naïf est qu'il requiert relativement peu de données d'entraînement pour estimer les paramètres nécessaires à la classification_, à savoir moyennes et variances des différentes variables.
+En effet, _l'hypothèse d'indépendance_ des variables permet de se contenter de la variance de chacune d'entre elles pour chaque classe, sans avoir à calculer de matrice de covariance.
+
+- Apprentissage supervisée accompégnée par des labels indiquant leurs classes
+- Autre: arbre de décision: noeuds à des tests, arc = resultat de test, feuilles = classes
+-
+
+### Classification
+
+XIA-NB is a C++ implementation of Naive Bayes Classifier, which is a well-known generative classification algorithm for applications such as text classification
