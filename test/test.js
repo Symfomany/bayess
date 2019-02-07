@@ -1,4 +1,5 @@
 const assert = require("assert");
+// const boost = require("./boost.js");
 
 let classifier = require("./training.js");
 
@@ -8,6 +9,7 @@ before(function () { });
  * SUJET + VERBE d'ÉTAT + ADVERBE + ADJECTIF
  * SUJET + VERBE  + COMPLEMENT d'OBJET
  * 
+ * 
  * [sujet] que... corps du SMS ou de l'email
  * 
  */
@@ -15,14 +17,25 @@ before(function () { });
 capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 extractTxt = (str) => {
+
+  // Dis à ... sans le que ...
   let regex = /(que|que l'|qui|qu'on|qu').*$/ig
   let matchObj = str.match(regex);
 
-  if (matchObj && matchObj.length > 0) {
+  if (!matchObj) {
+    let regex = /(Dis|Ecris|Envois|Renvois|Ecrire|Dire|Adresse) (à|a|au).*$/i
+    let matchObjTwo = str.match(regex);
+    if (matchObjTwo) {
+      matchObj = [];
+      matchObj[0] = matchObjTwo[0].replace(/(Dis à|Ecris à|Envois à|Renvois à)/, "");
+    }
+  }
+
+  if (matchObj) {
     matchObj[0] = matchObj[0].replace(/(que|que l'|qui|qu')/, "");
   }
 
-  return (matchObj && matchObj.length > 0) ? capitalizeFirstLetter(matchObj[0]).trim() : null;
+  return (matchObj) ? capitalizeFirstLetter(matchObj[0]).trim() : null;
 
 
 }
@@ -128,6 +141,26 @@ describe("Test on Bayesienne Training", () => {
     it("COD, COI, Complément", () => {
       let res = extractTxt("Tu peux dire à Manu qu'il serait temps de s'y mettre!")
       assert.equal("Il serait temps de s'y mettre!", res);
+    });
+
+    it(" Complément Direct", () => {
+      let res = extractTxt("Dis à Manu tu es le plus gentil!")
+      assert.equal("Manu tu es le plus gentil!", res);
+    });
+
+    it(" Complément Direct", () => {
+      let res = extractTxt("Ecris à Simon je serais absent demain matin")
+      assert.equal("Simon je serais absent demain matin", res);
+    });
+
+    it(" Complément Direct", () => {
+      let res = extractTxt("Envois à Juju je serais absent demain matin")
+      assert.equal("Juju je serais absent demain matin", res);
+    });
+
+    it(" Complément Direct", () => {
+      let res = extractTxt("Ecris à Michel la rose la mis là")
+      assert.equal("Michel la rose la mis là", res);
     });
 
   });

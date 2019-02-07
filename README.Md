@@ -1,3 +1,65 @@
+
+
+1. !!!! L'expediteur de la machine est identifier au départ par confirmation de son email et telephone (code) !!!!
+
+# NLP
+
+### Builtin Entity Extraction
+
+Builtin	English	French	Spanish	Portuguese	Chinese	Japanese	Other
+Email	X	X	X	X	X	X	X
+Ip	X	X	X	X	X	X	X
+Hashtag	X	X	X	X	X	X	X
+Phone Number	X	X	X	X	X	X	X
+URL	X	X	X	X	X	X	X
+Number	X	X	X	X	X	X	see 1
+Ordinal	X	X	X	X	X	X	
+Percentage	X	X	X	X	X	X	see 2
+Dimension	X	X	X	X	X	X	see 3
+Age	X	X	X	X	X	X	
+Currency	X	X	X	X	X	X	
+Date	X	X	X	X	see 4	see 4	see 4
+Duration
+
+# Bag of Words
+
+## Deux normalisations classiques sont la Lemmatisation et la Racinisation
+
+- La lemmatisation désigne un traitement lexical apporté à un texte en vue de son analyse. 
+- En linguistique, la racinisation ou désuffixation est un procédé de transformation des flexions en leur radical ou racine.
+
+Lemmatisation:
+    Le lemme petit renvoie à 4 formes fléchies : petit, petite, petits, petites
+    Le lemme aimer renvoie à un grand nombre de formes fléchies, d'autant plus grand que l'on prend en compte les formes composées a aimé, a été aimé, a été aimée, etc.
+
+Racinisation:
+    Par exemple, en anglais, la racinisation de « fishing' », « fished » , « fish » et « fisher » donne « fish »
+
+
+### Adaboosting
+
+## SMS & Email
+ * Dis à Manu : tu es ...
+ * Ecris à Manu: tu es ...
+ * Envois à Manu: blabla
+ * Adresse à Manu : ...
+ * Renvois à Manu ...
+
+## SMS
+* texto
+* SMS
+* petit message
+
+## Phone
+ * Mets-moi en relation avec
+ * Call
+ * Appel Manu
+ * Lance un appel
+
+## Detection SMS ou Phone (pas email)
+* Detection de numéro de portable
+
+
 # Classification Bayesienne
 
 La classification naïve bayésienne est un _type de classification bayésienne probabiliste simple_ basée sur le théorème de Bayes avec une forte indépendance (dite naïve) des hypothèses. Elle met en œuvre un classifieur bayésien naïf, ou classifieur naïf de Bayes, appartenant à la famille des classifieurs linéaires.

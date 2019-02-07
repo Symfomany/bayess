@@ -1,3 +1,7 @@
+/**
+ * NLP: Natural Language Processing
+ */
+
 const bayes = require("bayes");
 const classifier = bayes();
 
