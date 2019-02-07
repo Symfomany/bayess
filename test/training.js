@@ -1,6 +1,6 @@
 const bayes = require("bayes");
 const classifier = bayes();
-const fs = require('fs');
+const fs = require("fs");
 
 /**
  * Training for email
@@ -12,6 +12,14 @@ classifier.learn("Envois l'email à Manu maintenant", "email");
 classifier.learn("Envoyé un email demain après-midi à Thenoz", "email");
 classifier.learn("Envois un email à manu@free.fr", "email");
 classifier.learn("Go email à Simon", "email");
+classifier.learn(
+  "Envois un email à Simon pour lui transférer la pièce jointe",
+  "email"
+);
+classifier.learn(
+  "Envoyer un mail à Manu pour lui dire que la vie est belle",
+  "email"
+);
 
 /**
  * Training for tel
@@ -26,11 +34,33 @@ classifier.learn("Tu peux appeler Manu maintenant?", "tel");
 classifier.learn("Appeles Simon", "tel");
 classifier.learn("Appeler sur le portable Simon", "tel");
 classifier.learn("Appeles sur le portable Simon", "tel");
+classifier.learn("J'aimerais appeler Manuel", "tel");
+classifier.learn("Appeles Simon sur son portable", "tel");
+classifier.learn("Appeler Simon sur son portable", "tel");
+classifier.learn("Appeles-moi Simon s'il te plaît", "tel");
+classifier.learn("Call Simon maintenant", "tel");
+classifier.learn("Appeler sur le portable de Simon", "tel");
+classifier.learn("Appeler sur le portable de Manu", "tel");
+classifier.learn("Téléphoner à Manu", "tel");
+classifier.learn("Téléphoner à Simon", "tel");
+classifier.learn("Téléphones à Manu", "tel");
+classifier.learn("Téléphone à Simon", "tel");
 
 /**
- * Training for textp
+ * Training for texto
  */
-
+classifier.learn(
+  "Envois un texto à Simon pour lui dire que c'est lui le plus beau",
+  "sms"
+);
+classifier.learn(
+  "Envois un texto à Manu pour lui dire que c'est lui le plus beau",
+  "sms"
+);
+classifier.learn(
+  "Envoyer un texto à Manuel pour lui dire que c'est pas près pour tout de suite",
+  "sms"
+);
 classifier.learn(
   "Envois un sms à Simon et dis lui que c'est le plus beau",
   "sms"
@@ -81,14 +111,37 @@ classifier.learn(
   "Envoyer sur le portable de Manu le texto suivant:  Tu es sympa!",
   "sms"
 );
+
+classifier.learn(
+  "Envoyer sur le portable de Manu le SMS suivant:  Tu es drôle, je te veux dans mon équipe!",
+  "sms"
+);
+
+classifier.learn(
+  "Envoyer un petit SMS à Simon:  La traduction c'est cool!",
+  "sms"
+);
+
+classifier.learn("Envoyer un SMS à Manu:  Tu es naz!", "sms");
+
 classifier.learn("Envoyer à Simon le message suivant:  Tu es cool!", "sms");
 classifier.learn(
   "Envois un sms à Simon le message suivant:  Tu es trop cool!",
   "sms"
 );
+classifier.learn(
+  "Envois un texto pour Manu et dis lui que demain il devra se lever tôt",
+  "sms"
+);
+classifier.learn(
+  "Envois un SMS pour Manu et dis lui que tu es trop cool!",
+  "sms"
+);
 let jsonObj = classifier.toJson();
 
 let json = JSON.stringify(jsonObj);
-fs.writeFile('./test/dataset.json', json, 'utf8', () => console.log("Dataset stored!"));
+fs.writeFile("./dataset.json", json, "utf8", () =>
+  console.log("Dataset stored!")
+);
 
 module.exports = classifier;

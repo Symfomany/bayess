@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha test/test.js",
     "start": "nodemon index.js",
     "nlp": "nodemon nlp.js",
+    "train": "node test/training.js",
+    "deploy": "npm run train && npm run test",
     "record": "nodemon record.js",
     "report": "nyc --reporter=text mocha --reporter spec"
   },
