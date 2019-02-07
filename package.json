@@ -7,15 +7,21 @@
     "test": "mocha",
     "start": "nodemon index.js",
     "nlp": "nodemon nlp.js",
+    "record": "nodemon record.js",
     "report": "nyc --reporter=text mocha --reporter spec"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/speech": "^2.3.0",
     "adaboost": "^1.0.2",
     "bayes": "0.0.7",
+    "mic": "^2.1.2",
     "mocha": "^5.2.0",
-    "node-nlp": "^2.4.1"
+    "node-audiorecorder": "^1.4.0",
+    "node-nlp": "^2.4.1",
+    "node-wav": "0.0.2",
+    "wav": "^1.0.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",

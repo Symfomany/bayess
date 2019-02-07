@@ -1,7 +1,8 @@
 
 
 1. !!!! L'expediteur de la machine est identifier au départ par confirmation de son email et telephone (code) !!!!
-
+// rec -c 1 -b 16 -r 16000 myvoice.wav   gain +10
+SET GOOGLE_APPLICATION_CREDENTIALS="C:\Users\boyer\Desktop\bayes\console.json"
 # NLP
 
 ### Builtin Entity Extraction

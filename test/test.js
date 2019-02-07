@@ -1,15 +1,17 @@
 const assert = require("assert");
+const bayes = require("bayes");
+const dataset = require("./dataset.json");
+
 // const boost = require("./boost.js");
 
-let classifier = require("./training.js");
+const classifier = bayes.fromJson(dataset)
+
 
 before(function () { });
 
 /**
  * SUJET + VERBE d'ÉTAT + ADVERBE + ADJECTIF
  * SUJET + VERBE  + COMPLEMENT d'OBJET
- * 
- * 
  * [sujet] que... corps du SMS ou de l'email
  * 
  */
