@@ -1,23 +1,24 @@
-var FileWriter = require('wav').FileWriter;
-var mic = require('mic'); // requires arecord or sox, see https://www.npmjs.com/package/mic
+const FileWriter = require('wav').FileWriter;
+const mic = require('mic'); // requires arecord or sox, see https://www.npmjs.com/package/mic
 // Imports the Google Cloud client library
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
 
 // Creates a client
 const client = new speech.SpeechClient();
-
+const gpio = require('rpi-gpio')
+const gpiop = gpio.promise;
 // The name of the audio file to transcribe
 
-var micInstance = mic({
+const micInstance = mic({
     rate: '16000',
     channels: '1',
     debug: true,
     exitOnSilence: 1
 });
 
-var micInputStream = micInstance.getAudioStream();
-var outputFileStream = fs.WriteStream('./output.raw');
+const micInputStream = micInstance.getAudioStream();
+const outputFileStream = fs.WriteStream('./output.raw');
 micInputStream.pipe(outputFileStream);
 
 
@@ -30,11 +31,27 @@ micInputStream.on('error', function (err) {
 });
 
 micInputStream.on('startComplete', function () {
-    setTimeout(() => gpiop.write(7, true), 3000)
+
+    gpiop.setup(7, gpio.DIR_OUT)
+        .then(() => {
+            gpiop.write(7, true)
+            gpiop.setup(8, gpio.DIR_OUT)
+                .then(() => {
+                    gpiop.write(8, false)
+                    setTimeout(function () {
+                        micInstance.stop();
+                        gpiop.write(7, false)
+                        gpiop.write(8, true)
+                    }, 4000);
+                })
+                .catch((err) => {
+                    console.log('Error: ', err.toString())
+                })
+        })
+
+
     // console.log("Got SIGNAL startComplete");
-    setTimeout(function () {
-        micInstance.stop();
-    }, 4000);
+
 });
 
 micInputStream.on('stopComplete', function () {
