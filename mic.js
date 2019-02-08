@@ -18,6 +18,4 @@ micInputStream.pipe(outputFileStream);
 
 micInstance.start();
 
-setTimeout(function () {
-    micInstance.stop();
-}, 5000);
+setTimeout(() => micInstance.stop(), 5000);
