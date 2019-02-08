@@ -6,9 +6,9 @@ gpiop.setup(8, gpio.DIR_OUT);
 gpiop.write(7, true)
 gpiop.write(8, true)
 
-gpio.on('export', function (channel) {
-    console.log('Channel set: ' + channel);
-});
+// gpio.on('export', function (channel) {
+//     console.log('Channel set: ' + channel);
+// });
 
 
     //     gpiop.write(7, false)
