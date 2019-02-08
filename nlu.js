@@ -1,6 +1,7 @@
 // Imports the Google Cloud client library
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
+var gpio = require('rpi-gpio')
 
 // Creates a client
 const client = new speech.SpeechClient();

@@ -9,8 +9,6 @@ const client = new speech.SpeechClient();
 
 // The name of the audio file to transcribe
 
-
-
 var micInstance = mic({
     rate: '16000',
     channels: '1',
@@ -32,6 +30,7 @@ micInputStream.on('error', function (err) {
 });
 
 micInputStream.on('startComplete', function () {
+    setTimeout(() => gpiop.write(7, true), 3000)
     // console.log("Got SIGNAL startComplete");
     setTimeout(function () {
         micInstance.stop();
