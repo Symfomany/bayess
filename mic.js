@@ -8,7 +8,47 @@ const fs = require('fs');
 
 const client = new speech.SpeechClient();
 const gpio = require('rpi-gpio')
+const bayes = require("bayes");
+const dataset = require("./dataset.json");
+
 const gpiop = gpio.promise;
+
+
+const classifier = bayes.fromJson(dataset);
+
+
+
+/**
+ * Set functions util
+ */
+
+capitalizeFirstLetter = string =>
+    string.charAt(0).toUpperCase() + string.slice(1);
+
+extractTxt = str => {
+    // Dis à ... sans le que ...
+    let regex = /(que|que l'|qui|qu'on|qu').*$/gi;
+    let matchObj = str.match(regex);
+
+    if (!matchObj) {
+        let regex = /(Dis|Ecris|Envois|Renvois|Ecrire|Dire|Adresse) (à|a|au).*$/i;
+        let matchObjTwo = str.match(regex);
+        if (matchObjTwo) {
+            matchObj = [];
+            matchObj[0] = matchObjTwo[0].replace(
+                /(Dis à|Ecris à|Envois à|Renvois à)/,
+                ""
+            );
+        }
+    }
+
+    if (matchObj) {
+        matchObj[0] = matchObj[0].replace(/(que|que l'|qui|qu')/, "");
+    }
+
+    return matchObj ? capitalizeFirstLetter(matchObj[0]).trim() : null;
+};
+
 
 const micInstance = mic({
     rate: '16000',
@@ -80,6 +120,9 @@ micInputStream.on('stopComplete', function () {
                 .map(result => result.alternatives[0].transcript)
                 .join('\n');
             console.log(`Transcription: ${transcription}`);
+            let category = classifier.categorize(transcription.trim());
+            console.log(`Catégorie: ${category}`);
+
         })
         .catch(err => {
             console.error('ERROR:', err);
