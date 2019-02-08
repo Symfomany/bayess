@@ -1,0 +1,41 @@
+<html>
+<head></head>
+<body>
+    <h1>Ok</h1>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+        window.onSpotifyWebPlaybackSDKReady = () => {
+        console.log("The Web Playback SDK is ready. We have access to Spotify.Player");
+        console.log(window.Spotify.Player);
+
+        sdk.connect().then(connected => {
+        if (connected) {
+            // Connection was successful
+            console.log('je suis connecté')
+            let state = await sdk.getCurrentState();
+            if (state == null) {
+                // Playback isn't on this device yet
+                console.log("state is null...")
+            } else {
+                let {
+                    id,
+                    uri: track_uri,
+                    name: track_name,
+                    duration_ms,
+                    artists,
+                    album: {
+                    name: album_name,
+                    uri: album_uri,
+                    images: album_images
+                    }
+                } = state.track_window.current_track;
+                console.log(`You're listening to ${track_name} by ${artists[0].name}!`);
+            }
+
+        }
+        });
+
+        };
+    </script>
+</body>
+</html>

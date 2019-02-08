@@ -13,7 +13,6 @@ const dataset = require("./dataset.json");
 
 const gpiop = gpio.promise;
 
-
 const classifier = bayes.fromJson(dataset);
 
 
@@ -122,6 +121,10 @@ micInputStream.on('stopComplete', function () {
             console.log(`Transcription: ${transcription}`);
             let category = classifier.categorize(transcription.trim());
             console.log(`Catégorie: ${category}`);
+
+            if (category === "music") {
+
+            }
 
         })
         .catch(err => {
