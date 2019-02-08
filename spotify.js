@@ -1,72 +1,45 @@
-/**
- * Client ID 63a5a6987be44503b1dfd4afe346fe15
-Client Secret 67620db34cfe46caaf2987a0d717c4ee
+// const spotifyApi = new SpotifyWebApi();
 
-https://developer.spotify.com/dashboard/applications/63a5a6987be44503b1dfd4afe346fe15
- */
-const SpotifyPlayer = require('./spotify-player.js')
-var spotifyPlayer = new SpotifyPlayer();
+const request = require("request");
+const player = require("play-sound")((opts = {}));
 
+var client_id = "63a5a6987be44503b1dfd4afe346fe15";
+var client_secret = "67620db34cfe46caaf2987a0d717c4ee";
+var authOptions = {
+  url: "https://accounts.spotify.com/api/token",
+  headers: {
+    Authorization:
+      "Basic " +
+      new Buffer.from(client_id + ":" + client_secret).toString("base64")
+  },
+  form: {
+    grant_type: "client_credentials"
+  },
+  json: true
+};
 
-spotifyPlayer.on('update', response => {
-    // response is a json object obtained as a response of
-    // https://developer.spotify.com/web-api/get-information-about-the-users-current-playback/
+request.post(authOptions, function(error, response, body) {
+  if (!error && response.statusCode === 200) {
+    const authOptions = {
+      url: "https://api.spotify.com/v1/tracks/2TpxZ7JUBn3uw46aR7qd6V",
+      headers: {
+        Authorization: "Authorization: Bearer " + body.access_token
+      },
+      json: true
+    };
+
+    request.get(authOptions, (error, response, body) => {
+      console.log(body.external_urls.spotify);
+
+      // console.log(body);
+      // player.play(
+      //   "https://sample-videos.com/audio/mp3/crowd-cheering.mp3",
+      //   err => {
+      //     //   if (err) throw err;
+      //   }
+      // );
+    });
+
+    console.log({ token: body.access_token });
+  }
 });
-
-spotifyPlayer.on('login', user => {
-    if (user === null) {
-        // there is no user logged in or the user was logged out
-        console.log('nulllll')
-    } else {
-        console.log("connectéééé");
-
-        console.log(user)
-
-        // the user is logged in
-        // user is a json object obtained as a response of
-        // https://developer.spotify.com/web-api/get-current-users-profile/
-    }
-});
-
-loginButton.addEventListener('click', () => {
-    spotifyPlayer.login();
-});
-
-logoutButton.addEventListener('click', () => {
-    spotifyPlayer.logout();
-});
-
-spotifyPlayer.init();
-
-
-// function searchAndPlaySong(search_query) {
-//     return searchOnSpotify(search_query).then(results => {
-//         if (results.length > 0) {
-//             return playSong(results[0].spotify_uri);
-//         }
-//     });
-// }
-
-
-// async function searchAndPlayFirstSong(search_query) {
-//     let results = await searchOnSpotify(search_query);
-//     if (results.length === 0) return;
-//     return playSong(results[0].spotify_uri);
-// }
-
-// async function waitForSpotifyWebPlaybackSDKToLoad() {
-//     return new Promise(resolve => {
-//         if (window.Spotify) {
-//             resolve(window.Spotify);
-//         } else {
-//             window.onSpotifyWebPlaybackSDKReady = () => {
-//                 resolve(window.Spotify);
-//             };
-//         }
-//     });
-// };
-
-// (async () => {
-//     const { Player } = await waitForSpotifyWebPlaybackSDKToLoad();
-//     console.log("The Web Playback SDK has loaded.");
-// })();
