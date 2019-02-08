@@ -1,14 +1,14 @@
-const FileWriter = require('wav').FileWriter;
+// export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/bayess/console.json"
+
+
 const mic = require('mic'); // requires arecord or sox, see https://www.npmjs.com/package/mic
 // Imports the Google Cloud client library
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
 
-// Creates a client
 const client = new speech.SpeechClient();
 const gpio = require('rpi-gpio')
 const gpiop = gpio.promise;
-// The name of the audio file to transcribe
 
 const micInstance = mic({
     rate: '16000',
@@ -38,7 +38,7 @@ micInputStream.on('startComplete', function () {
             gpiop.setup(8, gpio.DIR_OUT)
                 .then(() => {
                     gpiop.write(8, false)
-                    setTimeout(function () {
+                    setTimeout(() => {
                         micInstance.stop();
                         gpiop.write(7, false)
                         gpiop.write(8, true)
