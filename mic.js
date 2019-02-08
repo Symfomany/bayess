@@ -24,31 +24,25 @@ micInputStream.pipe(outputFileStream);
 
 
 micInputStream.on('data', function (data) {
-    console.log("Recieved Input Stream: " + data.length);
+    // console.log("Recieved Input Stream: " + data.length);
 });
 
 micInputStream.on('error', function (err) {
-    cosole.log("Error in Input Stream: " + err);
+    // cosole.log("Error in Input Stream: " + err);
 });
 
 micInputStream.on('startComplete', function () {
-    console.log("Got SIGNAL startComplete");
+    // console.log("Got SIGNAL startComplete");
     setTimeout(function () {
         micInstance.stop();
-
-
     }, 4000);
 });
 
 micInputStream.on('stopComplete', function () {
-    console.log("Got SIGNAL stopComplete");
-
+    // console.log("Got SIGNAL stopComplete");
     const fileName = './output.raw';
-
-    // Reads a local audio file and converts it to base64
     const file = fs.readFileSync(fileName);
     const audioBytes = file.toString('base64');
-    // The audio file's encoding, sample rate in hertz, and BCP-47 language code
     const audio = {
         content: audioBytes,
     };
@@ -57,14 +51,10 @@ micInputStream.on('stopComplete', function () {
         sampleRateHertz: 16000,
         languageCode: 'fr-FR',
     };
-
-
     const request = {
         audio: audio,
         config: config,
     };
-
-
 
     // Detects speech in the audio file
     client.recognize(request)
