@@ -48,12 +48,6 @@ micInputStream.on('stopComplete', function () {
     // Reads a local audio file and converts it to base64
     const file = fs.readFileSync(fileName);
     const audioBytes = file.toString('base64');
-    const request = {
-        audio: audio,
-        config: config,
-    };
-
-
     // The audio file's encoding, sample rate in hertz, and BCP-47 language code
     const audio = {
         content: audioBytes,
@@ -63,6 +57,14 @@ micInputStream.on('stopComplete', function () {
         sampleRateHertz: 16000,
         languageCode: 'fr-FR',
     };
+
+
+    const request = {
+        audio: audio,
+        config: config,
+    };
+
+
 
     // Detects speech in the audio file
     client.recognize(request)
