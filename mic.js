@@ -138,11 +138,11 @@ micInputStream.on('stopComplete', function () {
 
 
 micInputStream.on('silence', function () {
-    console.log("Got SIGNAL silence");
+    // console.log("Got SIGNAL silence");
 });
 
 micInputStream.on('processExitComplete', function () {
-    console.log("Got SIGNAL processExitComplete");
+    // console.log("Got SIGNAL processExitComplete");
 });
 
 micInstance.start();
