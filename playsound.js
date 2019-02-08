@@ -4,6 +4,3 @@ var player = require('play-sound')(opts = {})
 player.play('./ramener.mp3', (err) => {
     if (err) throw err
 })
-
-
-audio.kill()
