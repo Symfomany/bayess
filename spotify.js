@@ -32,12 +32,9 @@ request.post(authOptions, function(error, response, body) {
       console.log(body.external_urls.spotify);
 
       // console.log(body);
-      // player.play(
-      //   "https://sample-videos.com/audio/mp3/crowd-cheering.mp3",
-      //   err => {
-      //     //   if (err) throw err;
-      //   }
-      // );
+      player.play(body.external_urls.spotify, err => {
+        //   if (err) throw err;
+      });
     });
 
     console.log({ token: body.access_token });
