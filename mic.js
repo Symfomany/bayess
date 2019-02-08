@@ -1,6 +1,5 @@
 var FileWriter = require('wav').FileWriter;
 var mic = require('mic'); // requires arecord or sox, see https://www.npmjs.com/package/mic
-var fs = require('fs');
 // Imports the Google Cloud client library
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
