@@ -6,7 +6,7 @@ const fs = require('fs');
 const client = new speech.SpeechClient();
 
 // The name of the audio file to transcribe
-const fileName = './myvoice.wav';
+const fileName = './output.raw';
 
 // Reads a local audio file and converts it to base64
 const file = fs.readFileSync(fileName);
