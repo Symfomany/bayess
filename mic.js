@@ -36,7 +36,7 @@ var micInstance = mic({
 });
 
 var micInputStream = micInstance.getAudioStream();
-var outputFileStream = fs.WriteStream('output.raw');
+var outputFileStream = fs.WriteStream('./output.raw');
 micInputStream.pipe(outputFileStream);
 
 
@@ -51,7 +51,7 @@ micInputStream.on('error', function (err) {
 micInputStream.on('startComplete', function () {
     console.log("Got SIGNAL startComplete");
     setTimeout(function () {
-        micInstance.pause();
+        micInstance.stop();
         // Detects speech in the audio file
         client.recognize(request)
             .then(data => {
@@ -72,19 +72,6 @@ micInputStream.on('stopComplete', function () {
     console.log("Got SIGNAL stopComplete");
 });
 
-micInputStream.on('pauseComplete', function () {
-    console.log("Got SIGNAL pauseComplete");
-    setTimeout(function () {
-        micInstance.resume();
-    }, 5000);
-});
-
-micInputStream.on('resumeComplete', function () {
-    console.log("Got SIGNAL resumeComplete");
-    setTimeout(function () {
-        micInstance.stop();
-    }, 5000);
-});
 
 micInputStream.on('silence', function () {
     console.log("Got SIGNAL silence");
