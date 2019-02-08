@@ -12,6 +12,7 @@ const bayes = require("bayes");
 const dataset = require("./dataset.json");
 
 const gpiop = gpio.promise;
+const player = require('play-sound')(opts = {})
 
 const classifier = bayes.fromJson(dataset);
 
@@ -123,7 +124,9 @@ micInputStream.on('stopComplete', function () {
             console.log(`Catégorie: ${category}`);
 
             if (category === "music") {
-
+                player.play('./ramener.mp3', (err) => {
+                    if (err) throw err
+                })
             }
 
         })
