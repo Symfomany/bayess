@@ -37,7 +37,7 @@ micInputStream.on('startComplete', function () {
         micInstance.stop();
 
 
-    }, 3000);
+    }, 4000);
 });
 
 micInputStream.on('stopComplete', function () {
