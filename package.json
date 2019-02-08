@@ -21,7 +21,6 @@
     "mic": "^2.1.2",
     "mocha": "^5.2.0",
     "node-audiorecorder": "^1.4.0",
-    "node-nlp": "^2.4.1",
     "node-wav": "0.0.2",
     "wav": "^1.0.2"
   },
