@@ -9,15 +9,6 @@ const client = new speech.SpeechClient();
 
 // The name of the audio file to transcribe
 
-// The audio file's encoding, sample rate in hertz, and BCP-47 language code
-const audio = {
-    content: audioBytes,
-};
-const config = {
-    encoding: 'LINEAR16',
-    sampleRateHertz: 16000,
-    languageCode: 'fr-FR',
-};
 
 
 var micInstance = mic({
@@ -60,6 +51,17 @@ micInputStream.on('stopComplete', function () {
     const request = {
         audio: audio,
         config: config,
+    };
+
+
+    // The audio file's encoding, sample rate in hertz, and BCP-47 language code
+    const audio = {
+        content: audioBytes,
+    };
+    const config = {
+        encoding: 'LINEAR16',
+        sampleRateHertz: 16000,
+        languageCode: 'fr-FR',
     };
 
     // Detects speech in the audio file
