@@ -1,6 +1,7 @@
 var hooloovoo = require("hooloovoo");
-const SPI = require("pi-spi");
+var dotstar = require("dotstar");
 
+const SPI = require("pi-spi");
 spi = SPI.initialize("/dev/spidev0.0");
 const ledStripLength = 12;
 
