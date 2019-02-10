@@ -17,8 +17,6 @@ let dec = 250;
 
 setInterval(() => (dec -= 250), 100);
 
-const blinkInterval = setInterval(blinkLED, dec); //run the blinkLED function every 250ms
-
 const blinkLED = () => {
   //function to start blinking
   if (LED.readSync() === 0) {
@@ -29,11 +27,13 @@ const blinkLED = () => {
   }
 };
 
-function endBlink() {
+const blinkInterval = setInterval(blinkLED, dec); //run the blinkLED function every 250ms
+
+let endBlink = () => {
   //function to stop blinking
   clearInterval(blinkInterval); // Stop blink intervals
   LED.writeSync(0); // Turn LED off
   LED.unexport(); // Unexport GPIO to free resources
-}
+};
 
 setTimeout(endBlink, 5000); //stop blinking after 5 seconds
