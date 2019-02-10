@@ -14,7 +14,9 @@
 //
 
 const spawn = require("child_process").spawn;
-const pythonProcess = spawn("python", ["examples/respeaker_4mic_array.py"]);
+const pythonProcess = spawn("python", [
+  "/home/pi/bayess/pixel_ring/examples/respeaker_4mic_array.py"
+]);
 pythonProcess.stdout.on("data", data => {
   // Do something with the data returned from python script
 });
