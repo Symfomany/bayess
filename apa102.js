@@ -1,4 +1,7 @@
 var hooloovoo = require("hooloovoo");
+var rpio = require("rpio");
+
+rpio.open(5, rpio.OUTPUT, rpio.HIGH);
 
 // connecting to Raspberry Pi
 hooloovoo.setup(10, 16); // assign number of APA102 LEDs, assign SPI clock
