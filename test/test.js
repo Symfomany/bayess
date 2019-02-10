@@ -2,6 +2,10 @@ const assert = require("assert");
 const bayes = require("bayes");
 
 const dataset = require("../dataset.json");
+const contacts = require("./contacts.json");
+// const algoliasearch = require("algoliasearch");
+// var client = algoliasearch("CUVOFGREY1", "9c966706dd576d92e188c1de2a82bbdf");
+// var index = client.initIndex("contacts");
 
 console.log("*****************************************");
 // const boost = require("./boost.js");
@@ -19,6 +23,53 @@ before(function() {});
 
 capitalizeFirstLetter = string =>
   string.charAt(0).toUpperCase() + string.slice(1);
+
+let extractName = phrase => {
+  let regex = new RegExp(`${phrase}`, "ig");
+
+  let resultat = null;
+  contacts.forEach(name => {
+    if (regex.test(name) == true) {
+      resultat = name;
+    }
+  });
+
+  return resultat;
+};
+
+let extractMusic = phrase => {
+  let regexTrack = new RegExp(`/(?:la musique|la chanson|L'extrait de)/`, "ig");
+  let regexTrackComplete = new RegExp(
+    `/(?:la musique|la chanson|L'extrait de).*/`,
+    "ig"
+  );
+
+  let regexAlbum = new RegExp(
+    `/(?:L'album|la bof|une chanson de|la playlist|du cd).*/`,
+    "ig"
+  );
+
+  let regexChanteurCompositeur = new RegExp(
+    "(?:Le chanteur|la chanteuse|la musique de|une chanson de|une musique de|les musiques de|la playlist de|les chansons de|un son de)",
+    "ig"
+  );
+  let regexChanteurCompositeurComplete = new RegExp(
+    `${regexChanteurCompositeur}.*`,
+    "gi"
+  );
+
+  const resOne = phrase.match(regexChanteurCompositeurComplete);
+  const resTwo = phrase.match(regexTrackComplete);
+
+  if (resTwo && resTwo.length > 0) {
+    return resTwo[0].replace(regexTrack, "").trim();
+  }
+
+  if (resOne && resOne.length > 0) {
+    return resOne[0].replace(regexChanteurCompositeur, "").trim();
+  }
+  return null;
+};
 
 extractTxt = str => {
   // Dis à ... sans le que ...
@@ -50,7 +101,10 @@ describe("Test on Bayesienne Training", () => {
       let cat = classifier.categorize("J'aimerais que tu appeles Manuel!");
       assert.equal("tel", cat);
     });
-
+    it("Intent Tel", () => {
+      let cat = classifier.categorize("J'aimerais appeler Alfred Dulair ");
+      assert.equal("tel", cat);
+    });
     it("Intent Tel", () => {
       let cat = classifier.categorize(
         "J'aimerais que tu appeles Alfred Dulair "
@@ -169,6 +223,13 @@ describe("Test on Bayesienne Training", () => {
 
     it("Intent Email", () => {
       let cat = classifier.categorize(
+        "Envoyer un e-mail pour Robert afin de luir dire que c'est déjà fait"
+      );
+      assert.equal("email", cat);
+    });
+
+    it("Intent Email", () => {
+      let cat = classifier.categorize(
         "Envois un e-mail important à Kevin sur la MagixBox de 2018"
       );
       assert.equal("email", cat);
@@ -189,6 +250,13 @@ describe("Test on Bayesienne Training", () => {
     it("Intent Email", () => {
       let cat = classifier.categorize(
         "Ecris un e-mail à Simon pour lui dire que c'est Lundi le rendez-vous"
+      );
+      assert.equal("email", cat);
+    });
+
+    it("Intent Email", () => {
+      let cat = classifier.categorize(
+        "Ecris un e-mail à mon frère pour lui dire que j'ai réservé pour le concert de musique"
       );
       assert.equal("email", cat);
     });
@@ -277,6 +345,13 @@ describe("Test on Bayesienne Training", () => {
 
     it("Intent SMS", () => {
       let cat = classifier.categorize(
+        "Envois un texto à Mamn pour dire que je suis arrivé au métro"
+      );
+      assert.equal("sms", cat);
+    });
+
+    it("Intent SMS", () => {
+      let cat = classifier.categorize(
         "Ecris un SMS à Papa pour dire que je viens ce soir dîner"
       );
       assert.equal("sms", cat);
@@ -315,6 +390,13 @@ describe("Test on Bayesienne Training", () => {
 
     it("Intent SMS", () => {
       let cat = classifier.categorize("Envois un sms à Manu");
+      assert.equal("sms", cat);
+    });
+
+    it("Intent SMS", () => {
+      let cat = classifier.categorize(
+        "Envois un message pour demain à Manu et dit lui que c'est mort..."
+      );
       assert.equal("sms", cat);
     });
 
@@ -434,6 +516,11 @@ describe("Test on Bayesienne Training", () => {
     });
 
     it("Music", () => {
+      let cat = classifier.categorize("Ecouter l'album de Christophe Maé");
+      assert.equal("music", cat);
+    });
+
+    it("Music", () => {
       let cat = classifier.categorize("Ecouter la chanson de Jul");
       assert.equal("music", cat);
     });
@@ -455,6 +542,11 @@ describe("Test on Bayesienne Training", () => {
 
     it("Music", () => {
       let cat = classifier.categorize("Ecouter la musique The Hobbit");
+      assert.equal("music", cat);
+    });
+
+    it("Music", () => {
+      let cat = classifier.categorize("Ecouter le compositeur Julien Boyer");
       assert.equal("music", cat);
     });
 
@@ -590,6 +682,130 @@ describe("Test on Bayesienne Training", () => {
     it(" Complément Direct", () => {
       let res = extractTxt("Ecris à Michel la rose la mis là");
       assert.equal("Michel la rose la mis là", res);
+    });
+
+    it(" Complément Direct", () => {
+      let res = extractTxt(
+        "Envois un SMS à Pierre pour lui dire que le Saint Maclou est fermé"
+      );
+      assert.equal("le Saint Maclou est fermé", res);
+    });
+
+    it("Intent SMS", () => {
+      let res = extractTxt(
+        "Envois un joli SMS à Manu et dis lui que je serais demain matin"
+      );
+      assert.equal("je serais demain matin", res);
+    });
+
+    it("Intent SMS", () => {
+      let res = extractTxt(
+        "Ecris un SMS à Manu pour lui dire qu'il faut qu'il soit là"
+      );
+      assert.equal("Il faut qu'il soit là", res);
+    });
+  });
+
+  describe("Test Search Contacts", () => {
+    it("It a phone number", () => {
+      const ph = "Appelles Manuel";
+      let cat = classifier.categorize(ph);
+      assert.equal("tel", cat);
+
+      const resultat = extractName(ph);
+      if (resultat) {
+        assert.equal(resultat.name, "Manuel Briand");
+      }
+    });
+
+    it("Send a SMS texto", () => {
+      const ph =
+        "Envois un texto à Simon Thenoz pour lui dire que demain on l'attends à la gare.";
+      let cat = classifier.categorize(ph);
+      assert.equal("sms", cat);
+
+      const resultat = extractName(ph);
+      if (resultat) {
+        assert.equal(resultat.name, "Simon Thenoz");
+      }
+    });
+
+    it("Send Email", () => {
+      const ph =
+        "Envois un e-mail à Julien B. pour lui dire d'arrêter de perdre son temps au café";
+      let cat = classifier.categorize(ph);
+      assert.equal("email", cat);
+
+      const resultat = extractName(ph);
+      if (resultat) {
+        assert.equal(resultat.name, "Julien Boyer");
+      }
+    });
+
+    it("Listen Music", () => {
+      const ph = "écouter les Copains d'Abord de George Brassens";
+      let cat = classifier.categorize(ph);
+      assert.equal("music", cat);
+
+      const resultat = extractName(ph);
+      if (resultat) {
+        assert.equal(resultat, null);
+      }
+    });
+  });
+
+  describe("Test Extract some compositeur", () => {
+    it("Listen Music Compositeur", () => {
+      const ph = "écouter une musique de George Brassens";
+
+      const resultat = extractMusic(ph);
+      if (resultat) {
+        assert.equal(resultat, "George Brassens");
+      }
+    });
+
+    it("Listen Music Chanteur", () => {
+      const ph = "écouter la chanson de Puth Dady";
+
+      const resultat = extractMusic(ph);
+      if (resultat) {
+        assert.equal(resultat, "Adèle");
+      }
+    });
+
+    it("Listen Music Chanteuse", () => {
+      const ph = "écouter une chanson de Adèle";
+
+      const resultat = extractMusic(ph);
+      if (resultat) {
+        assert.equal(resultat, "Adèle");
+      }
+    });
+
+    it("Listen Track", () => {
+      const ph = "écouter la chanson que je t'aime";
+
+      const resultat = extractMusic(ph);
+      if (resultat) {
+        assert.equal(resultat, "que je t'aime");
+      }
+    });
+
+    it("Listen Track", () => {
+      const ph = "écouter la musique Un Grand Amour";
+
+      const resultat = extractMusic(ph);
+      if (resultat) {
+        assert.equal(resultat, "Un Grand Amour");
+      }
+    });
+    it("Listen Track", () => {
+      const ph = "écouter la chanson de Mickael Jackson";
+
+      const resultat = extractMusic(ph);
+      if (resultat) {
+        assert.equal(resultat, "Mickael Jackson");
+      }
     });
   });
 });
