@@ -1,65 +1,70 @@
+Raccourci alias git
 
+git config alias.acp '! git commit -a -m "commit" && git push'
 
 1. !!!! L'expediteur de la machine est identifier au départ par confirmation de son email et telephone (code) !!!!
-// rec -c 1 -b 16 -r 16000 myvoice.wav   gain +10
-SET GOOGLE_APPLICATION_CREDENTIALS="C:\Users\boyer\Desktop\bayes\console.json"
+   // rec -c 1 -b 16 -r 16000 myvoice.wav gain +10
+   SET GOOGLE_APPLICATION_CREDENTIALS="C:\Users\boyer\Desktop\bayes\console.json"
+
 # NLP
 
 ### Builtin Entity Extraction
 
-Builtin	English	French	Spanish	Portuguese	Chinese	Japanese	Other
-Email	X	X	X	X	X	X	X
-Ip	X	X	X	X	X	X	X
-Hashtag	X	X	X	X	X	X	X
-Phone Number	X	X	X	X	X	X	X
-URL	X	X	X	X	X	X	X
-Number	X	X	X	X	X	X	see 1
-Ordinal	X	X	X	X	X	X	
-Percentage	X	X	X	X	X	X	see 2
-Dimension	X	X	X	X	X	X	see 3
-Age	X	X	X	X	X	X	
-Currency	X	X	X	X	X	X	
-Date	X	X	X	X	see 4	see 4	see 4
+Builtin English French Spanish Portuguese Chinese Japanese Other
+Email X X X X X X X
+Ip X X X X X X X
+Hashtag X X X X X X X
+Phone Number X X X X X X X
+URL X X X X X X X
+Number X X X X X X see 1
+Ordinal X X X X X X
+Percentage X X X X X X see 2
+Dimension X X X X X X see 3
+Age X X X X X X
+Currency X X X X X X
+Date X X X X see 4 see 4 see 4
 Duration
 
 # Bag of Words
 
 ## Deux normalisations classiques sont la Lemmatisation et la Racinisation
 
-- La lemmatisation désigne un traitement lexical apporté à un texte en vue de son analyse. 
+- La lemmatisation désigne un traitement lexical apporté à un texte en vue de son analyse.
 - En linguistique, la racinisation ou désuffixation est un procédé de transformation des flexions en leur radical ou racine.
 
 Lemmatisation:
-    Le lemme petit renvoie à 4 formes fléchies : petit, petite, petits, petites
-    Le lemme aimer renvoie à un grand nombre de formes fléchies, d'autant plus grand que l'on prend en compte les formes composées a aimé, a été aimé, a été aimée, etc.
+Le lemme petit renvoie à 4 formes fléchies : petit, petite, petits, petites
+Le lemme aimer renvoie à un grand nombre de formes fléchies, d'autant plus grand que l'on prend en compte les formes composées a aimé, a été aimé, a été aimée, etc.
 
 Racinisation:
-    Par exemple, en anglais, la racinisation de « fishing' », « fished » , « fish » et « fisher » donne « fish »
-
+Par exemple, en anglais, la racinisation de « fishing' », « fished » , « fish » et « fisher » donne « fish »
 
 ### Adaboosting
 
 ## SMS & Email
- * Dis à Manu : tu es ...
- * Ecris à Manu: tu es ...
- * Envois à Manu: blabla
- * Adresse à Manu : ...
- * Renvois à Manu ...
+
+- Dis à Manu : tu es ...
+- Ecris à Manu: tu es ...
+- Envois à Manu: blabla
+- Adresse à Manu : ...
+- Renvois à Manu ...
 
 ## SMS
-* texto
-* SMS
-* petit message
+
+- texto
+- SMS
+- petit message
 
 ## Phone
- * Mets-moi en relation avec
- * Call
- * Appel Manu
- * Lance un appel
+
+- Mets-moi en relation avec
+- Call
+- Appel Manu
+- Lance un appel
 
 ## Detection SMS ou Phone (pas email)
-* Detection de numéro de portable
 
+- Detection de numéro de portable
 
 # Classification Bayesienne
 
@@ -80,7 +85,6 @@ En effet, _l'hypothèse d'indépendance_ des variables permet de se contenter de
 ### Classification
 
 XIA-NB is a C++ implementation of Naive Bayes Classifier, which is a well-known generative classification algorithm for applications such as text classification
-
 
 ### Structures de phrase
 
@@ -106,7 +110,7 @@ XIA-NB is a C++ implementation of Naive Bayes Classifier, which is a well-known 
     Quand la phrase est composée de deux propositions coordonnées, on utilise une conjonction de coordination pour relier les deux propositions.
     Exemple : Ce plat est appétissant mais je n'ai plus faim.
 
-    ## B. Deux propositions juxtaposées 
+    ## B. Deux propositions juxtaposées
     Quand la phrase est composée de deux propositions juxtaposées, on utilise un signe de ponctuation entre les propositions.
     Exemple : Nous sommes restés amis, nous nous appelons souvent.
 
