@@ -136,7 +136,7 @@ micInputStream.on("stopComplete", function () {
         });
       }
       else if (category == "sms") {
-        const files = fs.readdirSync('./resources/email/')
+        const files = fs.readdirSync('./resources/sms/')
         let chosenFile = files[Math.floor(Math.random() * files.length)]
         player.play(`./resources/email/${chosenFile}`, err => {
           if (err) throw err;
