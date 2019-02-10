@@ -1,3 +1,5 @@
+var hooloovoo = require("hooloovoo");
+
 // connecting to Raspberry Pi
 hooloovoo.setup(10, 16); // assign number of APA102 LEDs, assign SPI clock
 hooloovoo.set_clock(16); // OPTIONAL - Assign SPI clock - same as 2nd value of setup(), so unnecessary if you set it in setup(). Set this individually if you like.
