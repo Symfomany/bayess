@@ -127,6 +127,7 @@ micInputStream.on("stopComplete", function () {
         const dir = '/home/pi/bayess/resources/email'
 
         randomFile(dir, (err, file) => {
+          console.log(file);
           player.play(file, err => {
             if (err) throw err;
           });
@@ -137,6 +138,7 @@ micInputStream.on("stopComplete", function () {
         const dir = '/home/pi/bayess/resources/sms'
 
         randomFile(dir, (err, file) => {
+          console.log(file);
           player.play(file, err => {
             if (err) throw err;
           });
