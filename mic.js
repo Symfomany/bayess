@@ -131,6 +131,8 @@ micInputStream.on("stopComplete", function () {
 
         randomFile(dir, (err, file) => {
           console.log(file);
+          if (err) console.log(err);
+
           player.play(file, err => {
             if (err) throw err;
           });
@@ -141,6 +143,8 @@ micInputStream.on("stopComplete", function () {
         const dir = './resources/email/'
 
         randomFile(dir, (err, file) => {
+          if (err) console.log(err);
+
           console.log(file);
           player.play(file, err => {
             if (err) throw err;
