@@ -17,6 +17,7 @@ const player = require("play-sound")((opts = {}));
 const classifier = bayes.fromJson(dataset);
 const spawn = require("child_process").spawn;
 const randomFile = require('random-file')
+
 /**
  * Set functions util
  */
@@ -126,30 +127,20 @@ micInputStream.on("stopComplete", function () {
       console.log(`Catégorie: ${category}`);
 
 
+
       if (category == "email") {
-        const dir = './resources/email/'
-
-        randomFile(dir, (err, file) => {
-          console.log(file);
-          if (err) console.log(err);
-
-          player.play(file, err => {
-            if (err) throw err;
-          });
-        })
-
+        const files = fs.readdirSync('./resources/email/')
+        let chosenFile = files[Math.floor(Math.random() * files.length)]
+        player.play(`./resources/email/${chosenFile}`, err => {
+          if (err) throw err;
+        });
       }
       else if (category == "sms") {
-        const dir = './resources/email/'
-
-        randomFile(dir, (err, file) => {
-          if (err) console.log(err);
-
-          console.log(file);
-          player.play(file, err => {
-            if (err) throw err;
-          });
-        })
+        const files = fs.readdirSync('./resources/email/')
+        let chosenFile = files[Math.floor(Math.random() * files.length)]
+        player.play(`./resources/email/${chosenFile}`, err => {
+          if (err) throw err;
+        });
 
       }
       else {
