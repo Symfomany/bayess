@@ -8,7 +8,7 @@ console.log("Send 1 to Arduino");
 const blinkLED = () => {
   port.write("a");
 };
-const blinkInterval = setInterval(blinkLED, 0); //run the blinkLED function every 250ms
+const blinkInterval = setInterval(blinkLED, 250); //run the blinkLED function every 250ms
 const endBlink = () => {
   clearInterval(blinkInterval); // Stop blink intervals
 };
