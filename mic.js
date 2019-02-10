@@ -67,6 +67,11 @@ micInputStream.on("error", function(err) {
 });
 
 micInputStream.on("startComplete", function() {
+  const spawn = require("child_process").spawn;
+  const pythonProcess = spawn("python", [
+    "/home/pi/pixel_ring/examples/respeaker_4mic_array.py"
+  ]);
+
   gpiop.setup(7, gpio.DIR_OUT).then(() => {
     gpiop.write(7, true);
     gpiop
@@ -77,7 +82,7 @@ micInputStream.on("startComplete", function() {
           micInstance.stop();
           gpiop.write(7, false);
           gpiop.write(8, true);
-        }, 4000);
+        }, 5000);
       })
       .catch(err => {
         console.log("Error: ", err.toString());
