@@ -1,38 +1,10 @@
-var hooloovoo = require("hooloovoo");
-const SPI = require("pi-spi");
-spi = SPI.initialize("/dev/spidev0.0");
-const ledStripLength = 12;
+var Apa102spi = require("apa102-spi");
 
-var rpio = require("rpio");
-rpio.open(5, rpio.OUTPUT, rpio.HIGH);
+// Apa102spi(number of leds, clock divider)
+var LedDriver = new Apa102spi(9, 100);
 
-// connecting to Raspberry Pi
-hooloovoo.setup(12, 12); // assign number of APA102 LEDs, assign SPI clock
-hooloovoo.set_clock(12); // OPTIONAL - Assign SPI clock - same as 2nd value of setup(), so unnecessary if you set it in setup(). Set this individually if you like.
+// setLedColor(n, brightness 0-31, red 0-255, green 0-255, blue 0-255) , n=0 led1; n=1, led2; n=2, led3;
+LedDriver.setLedColor(0, 1, 255, 0, 0);
 
-// set all colors to red
-console.log("fill all red");
-hooloovoo.fill_RGB(255, 0, 0);
-
-// after 2 seconds set first 6 LEDs to (red, green, blue, red, green, blue)
-setTimeout(function() {
-  console.log("red green blue red green blue");
-  // set_pixel_RGB(ledIndex,r,g,b);
-  // ledIndex: 0 = LED1, 1 = LED2, …
-  // red: (0-255), green: (0-255), blue: (0-255)
-  hooloovoo.set_pixel_RGB(0, 255, 0, 0); // set LED1 to red
-
-  // set_pixel_hex(ledIndex, hexColor);
-  // ledIndex: 0 = LED1, 1 = LED2, …
-  // hexColor: '#FF0000' = red, '#00FF00' = green, ...
-  hooloovoo.set_pixel_hex(1, "00FF00"); // set LED2 to green
-
-  // set_pixel_BGR(ledIndex,b,g,r);
-  // ledIndex: 0 = LED1, 1 = LED2, …
-  // blue: (0-255), green: (0-255), red: (0-255)
-  hooloovoo.set_pixel_BGR(2, 255, 0, 0); // set LED3 to blue
-
-  hooloovoo.set_pixel_hex(3, "FF0000"); // set LED4 to red
-  hooloovoo.set_pixel_hex(4, "00FF00"); // set LED5 to green
-  hooloovoo.set_pixel_hex(5, "0000FF"); // set LED6 to blue
-}, 5000);
+// send data to led string
+LedDriver.sendLeds();
