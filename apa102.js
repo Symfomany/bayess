@@ -11,9 +11,11 @@
 //   LedDriver.sendLeds();
 // }, 2000);
 
-// setTimeout(() => {}, 10000);
+//
 
 const spawn = require("child_process").spawn;
 const pythonProcess = spawn("python", [
   "/home/pi/pixel_ring/respeaker_4mic_array.py"
 ]);
+
+setTimeout(() => {}, 10000);
