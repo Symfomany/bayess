@@ -1,5 +1,5 @@
 var load = require("audio-loader");
-// const player = require("play-sound")((opts = {}));
+const player = require("play-sound")((opts = {}));
 // const stream = require("stream");
 // const Speaker = require("speaker");
 var play = require("audio-play");
@@ -19,8 +19,9 @@ function err(error) {
 
 load("https://sample-videos.com/audio/mp3/crowd-cheering.mp3")
   .then(buffer => {
-    var sample = player(ac, buffer);
-    sample.start();
+    play(buffer)
+    // var sample = player(ac, buffer);
+    // sample.start();
   })
   .catch(err);
 
