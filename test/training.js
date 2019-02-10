@@ -223,6 +223,10 @@ classifier.learn(
 
 classifier.learn("Envoyer un beau SMS à Manu pour lui dire que le JS !", "sms");
 classifier.learn(
+  "Envoie sur le portable de Manu le texto suivant:  Tu es sympa!",
+  "sms"
+);
+classifier.learn(
   "Envoyer sur le portable de Manu le texto suivant:  Tu es sympa!",
   "sms"
 );
@@ -236,6 +240,7 @@ classifier.learn(
   "Envoyer un petit SMS à Simon:  La traduction c'est cool!",
   "sms"
 );
+classifier.learn("Envoie un SMS à Julien afin qu'il ne s'inquiète pas:  Tu es naz!", "sms");
 
 classifier.learn("Envoyer un SMS à Manu:  Tu es naz!", "sms");
 

@@ -420,7 +420,7 @@ describe("Test on Bayesienne Training", () => {
 
     it("Intent SMS", () => {
       let cat = classifier.categorize(
-        "envoie un texto à Thibault pour lui dire que je serai à la réunion demain"
+        "Envoie un texto à Pissune pour lui dire que demain c'est mardi 2 janvier"
       );
       assert.equal("sms", cat);
     });
