@@ -109,6 +109,8 @@ classifier.learn(
 );
 classifier.learn("Appelles Simon Thenoz", "tel");
 classifier.learn("Appeller Manu ", "tel");
+classifier.learn("Appelle Manu ", "tel");
+
 classifier.learn("Appeller le 0674585648 ", "tel");
 classifier.learn("Appeller le 0674585648 ", "tel");
 classifier.learn("Appelles au numéro de Manu ", "tel");
@@ -151,8 +153,10 @@ classifier.learn(
   "Ecris un SMS à Julie pour lui dire que je suis disponible ce soir",
   "sms"
 );
+classifier.learn("Appelle Manu ", "tel");
+
 classifier.learn(
-  "Envois un texto à Simon pour lui dire que c'est lui le plus beau",
+  "Envoie un texto à Simon pour lui dire que c'est lui le plus moche",
   "sms"
 );
 classifier.learn(
@@ -241,7 +245,15 @@ classifier.learn(
   "sms"
 );
 classifier.learn(
+  "Envoie un texto pour Manu et dis lui que demain il devra se lever tôt",
+  "sms"
+);
+classifier.learn(
   "Envois un texto pour Manu et dis lui que demain il devra se lever tôt",
+  "sms"
+);
+classifier.learn(
+  "Envoie un SMS pour Julien et dis lui que tu es trop cool!",
   "sms"
 );
 classifier.learn(
@@ -251,7 +263,7 @@ classifier.learn(
 let jsonObj = classifier.toJson();
 
 let json = JSON.stringify(jsonObj);
-fs.writeFile("./dataset.json", json, "utf8", () =>
+fs.writeFile("../dataset.json", json, "utf8", () =>
   console.log("Dataset stored!")
 );
 

@@ -12,7 +12,7 @@ console.log("*****************************************");
 
 const classifier = bayes.fromJson(dataset);
 
-before(function() {});
+before(function () { });
 
 /**
  * SUJET + VERBE d'ÉTAT + ADVERBE + ADJECTIF
@@ -417,6 +417,14 @@ describe("Test on Bayesienne Training", () => {
       );
       assert.equal("sms", cat);
     });
+
+    it("Intent SMS", () => {
+      let cat = classifier.categorize(
+        "envoie un texto à Thibault pour lui dire que je serai à la réunion demain"
+      );
+      assert.equal("sms", cat);
+    });
+
 
     it("Intent SMS", () => {
       let cat = classifier.categorize(

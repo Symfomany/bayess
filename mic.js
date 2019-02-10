@@ -121,8 +121,6 @@ micInputStream.on("stopComplete", function () {
       console.log(`Catégorie: ${category}`);
 
 
-
-
       if (category === "email") {
         const dir = '/home/pi/bayess/resources/email'
 
