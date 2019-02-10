@@ -59,15 +59,15 @@ const micInputStream = micInstance.getAudioStream();
 const outputFileStream = fs.WriteStream("./output.raw");
 micInputStream.pipe(outputFileStream);
 
-micInputStream.on("data", function(data) {
+micInputStream.on("data", function (data) {
   // console.log("Recieved Input Stream: " + data.length);
 });
 
-micInputStream.on("error", function(err) {
+micInputStream.on("error", function (err) {
   // cosole.log("Error in Input Stream: " + err);
 });
 
-micInputStream.on("startComplete", function() {
+micInputStream.on("startComplete", function () {
   spawn("python", ["/home/pi/pixel_ring/examples/respeaker_4mic_array.py"]);
 
   gpiop.setup(7, gpio.DIR_OUT).then(() => {
@@ -90,7 +90,7 @@ micInputStream.on("startComplete", function() {
   // console.log("Got SIGNAL startComplete");
 });
 
-micInputStream.on("stopComplete", function() {
+micInputStream.on("stopComplete", function () {
   // console.log("Got SIGNAL stopComplete");
   const fileName = "./output.raw";
   const file = fs.readFileSync(fileName);
@@ -120,22 +120,48 @@ micInputStream.on("stopComplete", function() {
       let category = classifier.categorize(transcription.trim());
       console.log(`Catégorie: ${category}`);
 
-      if (category === "music") {
+
+
+      const dir = '/home/pi/bayess/resources/email'
+
+
+      if (category === "email") {
+        const dir = '/home/pi/bayess/resources/email'
+
+        randomFile(dir, (err, file) => {
+          player.play(file, err => {
+            if (err) throw err;
+          });
+        })
+
+      }
+      else if (category === "sms") {
+        const dir = '/home/pi/bayess/resources/sms'
+
+        randomFile(dir, (err, file) => {
+          player.play(file, err => {
+            if (err) throw err;
+          });
+        })
+
+      }
+      else {
         player.play("./ramener.mp3", err => {
           if (err) throw err;
         });
       }
+
     })
     .catch(err => {
       console.error("ERROR:", err);
     });
 });
 
-micInputStream.on("silence", function() {
+micInputStream.on("silence", function () {
   // console.log("Got SIGNAL silence");
 });
 
-micInputStream.on("processExitComplete", function() {
+micInputStream.on("processExitComplete", function () {
   // console.log("Got SIGNAL processExitComplete");
 });
 
