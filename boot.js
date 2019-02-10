@@ -2,16 +2,15 @@ const SerialPort = require("serialport");
 const port = new SerialPort("/dev/ttyACM0", { baudRate: 9600 }); // 256000
 // port.pipe(parser);
 // parser.on("data", line => console.log(`> ${line}`));
-port.write("a", err => {
-  if (err) {
-    return console.log("Error on write: ", err.message);
-  }
-  console.log("message written");
-});
-
-// Open errors will be emitted as an error event
-port.on("error", err => {
-  console.log("Error: ", err.message);
-});
 
 console.log("Send 1 to Arduino");
+
+const blinkLED = () => {
+  port.write("a");
+};
+const blinkInterval = setInterval(blinkLED, 250); //run the blinkLED function every 250ms
+const endBlink = () => {
+  clearInterval(blinkInterval); // Stop blink intervals
+};
+
+setTimeout(endBlink, 5000); //stop blinking after 5 seconds
