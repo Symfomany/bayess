@@ -92,11 +92,6 @@ micInputStream.on("startComplete", function () {
 });
 
 micInputStream.on("stopComplete", function () {
-
-  player.play("./wakeup.wav", err => {
-    if (err) throw err;
-  });
-
   // console.log("Got SIGNAL stopComplete");
   const fileName = "./output.raw";
   const file = fs.readFileSync(fileName);
