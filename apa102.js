@@ -14,5 +14,6 @@
 // setTimeout(() => {}, 10000);
 
 const spawn = require("child_process").spawn;
-const pythonProcess = spawn('python',["/home/pi/pixel_ring/respeaker_4mic_array.py", arg1, arg2, ...]);
-
+const pythonProcess = spawn("python", [
+  "/home/pi/pixel_ring/respeaker_4mic_array.py"
+]);
