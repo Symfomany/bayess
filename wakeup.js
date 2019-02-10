@@ -1,6 +1,6 @@
 const player = require("play-sound")((opts = {}));
-const gpio = require("rpi-gpio");
-const gpiop = gpio.promise;
+// const gpio = require("rpi-gpio");
+// const gpiop = gpio.promise;
 
 player.play("./wakeup.wav", err => {
   if (err) throw err;
@@ -12,7 +12,7 @@ console.log("Playing music");
 // var gpio7, intervalTimer;
 var Gpio = require("onoff").Gpio; //include onoff to interact with the GPIO
 var LED = new Gpio(4, "out"); //use GPIO pin 4, and specify that it is output
-var blinkInterval = setInterval(blinkLED, 250); //run the blinkLED function every 250ms
+var blinkInterval = setInterval(blinkLED, 25); //run the blinkLED function every 250ms
 
 function blinkLED() {
   //function to start blinking
@@ -32,15 +32,3 @@ function endBlink() {
 }
 
 setTimeout(endBlink, 5000); //stop blinking after 5 seconds
-// gpiop.setup(7, gpio.DIR_OUT).then(() => {
-//   gpiop.write(7, true);
-//   let intervalFunc = () => gpiop.write(7, true);
-//   let intervalFuncTwo = () => gpiop.write(7, false);
-
-//   setInterval(intervalFunc, 1500);
-//   setInterval(intervalFuncTwo, 2000);
-
-//   console.log("Go GPIO");
-
-//   setTimeout(() => gpiop.write(7, false), 7000);
-// });
