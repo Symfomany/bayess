@@ -13,4 +13,4 @@ const endBlink = () => {
   clearInterval(blinkInterval); // Stop blink intervals
 };
 
-setTimeout(endBlink, 10000); //stop blinking after 5 seconds
+setTimeout(endBlink, 20000); //stop blinking after 5 seconds
