@@ -1,22 +1,14 @@
 var hooloovoo = require("hooloovoo");
-var dotstar = require("dotstar");
-
 const SPI = require("pi-spi");
 spi = SPI.initialize("/dev/spidev0.0");
 const ledStripLength = 12;
-
-const ledStrip = new dotstar.Dotstar(spi, {
-  length: ledStripLength
-});
 
 var rpio = require("rpio");
 rpio.open(5, rpio.OUTPUT, rpio.HIGH);
 
 // connecting to Raspberry Pi
-hooloovoo.setup(10, 16); // assign number of APA102 LEDs, assign SPI clock
-hooloovoo.set_clock(16); // OPTIONAL - Assign SPI clock - same as 2nd value of setup(), so unnecessary if you set it in setup(). Set this individually if you like.
-
-var led_count = 10;
+hooloovoo.setup(12, 12); // assign number of APA102 LEDs, assign SPI clock
+hooloovoo.set_clock(12); // OPTIONAL - Assign SPI clock - same as 2nd value of setup(), so unnecessary if you set it in setup(). Set this individually if you like.
 
 // set all colors to red
 console.log("fill all red");
