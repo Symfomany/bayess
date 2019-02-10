@@ -12,7 +12,12 @@ console.log("Playing music");
 // var gpio7, intervalTimer;
 var Gpio = require("onoff").Gpio; //include onoff to interact with the GPIO
 var LED = new Gpio(4, "out"); //use GPIO pin 4, and specify that it is output
-var blinkInterval = setInterval(blinkLED, 25); //run the blinkLED function every 250ms
+
+let dec = 250;
+
+setInterval(() => (dec -= 25), 10);
+
+var blinkInterval = setInterval(blinkLED, dec); //run the blinkLED function every 250ms
 
 function blinkLED() {
   //function to start blinking
