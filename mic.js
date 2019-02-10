@@ -127,7 +127,7 @@ micInputStream.on("stopComplete", function () {
 
 
       if (category === "email") {
-        const dir = '/home/pi/bayess/resources/email'
+        const dir = './resources/email'
 
         randomFile(dir, (err, file) => {
           console.log(file);
@@ -138,7 +138,7 @@ micInputStream.on("stopComplete", function () {
 
       }
       else if (category === "sms") {
-        const dir = '/home/pi/bayess/resources/sms'
+        const dir = './resources/email'
 
         randomFile(dir, (err, file) => {
           console.log(file);
