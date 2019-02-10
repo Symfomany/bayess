@@ -1,18 +1,13 @@
 const player = require("play-sound")((opts = {}));
-// const gpio = require("rpi-gpio");
-// const gpiop = gpio.promise;
-
-player.play("./wakeup.wav", err => {
-  if (err) throw err;
-});
-
-console.log("Playing music");
 
 const SerialPort = require("serialport");
 const port = new SerialPort("/dev/ttyACM0", { baudRate: 9600 }); // 256000
 
-setTimeout(() => port.write("a"), 10000); //stop blinking after 5 seconds
-setTimeout(() => true, 20000); //stop blinking after 5 seconds
+player.play("./wakeup.wav");
+console.log("Playing music");
+
+setTimeout(() => port.write("a"), 2000); //stop blinking after 5 seconds
+setTimeout(() => process.exit(), 20000); //stop blinking after 5 seconds
 
 // // var gpio = require("gpio");
 // // var gpio7, intervalTimer;
