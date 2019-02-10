@@ -5,12 +5,12 @@ const port = new SerialPort("/dev/ttyACM0", { baudRate: 9600 }); // 256000
 
 console.log("Send 1 to Arduino");
 
-const blinkLED = () => {
-  port.write("a");
-};
-const blinkInterval = setInterval(blinkLED, 200); //run the blinkLED function every 250ms
-const endBlink = () => {
-  clearInterval(blinkInterval); // Stop blink intervals
-};
+// const blinkLED = () => {
+//   port.write("a");
+// };
+// const blinkInterval = setInterval(blinkLED, 200); //run the blinkLED function every 250ms
+// const endBlink = () => {
+//   clearInterval(blinkInterval); // Stop blink intervals
+// };
 
-setTimeout(endBlink, 20000); //stop blinking after 5 seconds
+setTimeout(() => port.write("a"), 1000); //stop blinking after 5 seconds
