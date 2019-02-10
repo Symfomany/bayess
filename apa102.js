@@ -1,6 +1,14 @@
 var hooloovoo = require("hooloovoo");
-var rpio = require("rpio");
+const SPI = require("pi-spi");
 
+spi = SPI.initialize("/dev/spidev0.0");
+const ledStripLength = 12;
+
+const ledStrip = new dotstar.Dotstar(spi, {
+  length: ledStripLength
+});
+
+var rpio = require("rpio");
 rpio.open(5, rpio.OUTPUT, rpio.HIGH);
 
 // connecting to Raspberry Pi
