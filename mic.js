@@ -126,8 +126,8 @@ micInputStream.on("stopComplete", function () {
       console.log(`Catégorie: ${category}`);
 
 
-      if (category === "email") {
-        const dir = './resources/email'
+      if (category == "email") {
+        const dir = './resources/email/'
 
         randomFile(dir, (err, file) => {
           console.log(file);
@@ -137,8 +137,8 @@ micInputStream.on("stopComplete", function () {
         })
 
       }
-      else if (category === "sms") {
-        const dir = './resources/email'
+      else if (category == "sms") {
+        const dir = './resources/email/'
 
         randomFile(dir, (err, file) => {
           console.log(file);
