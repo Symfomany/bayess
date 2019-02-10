@@ -17,6 +17,7 @@
   "dependencies": {
     "@google-cloud/speech": "^2.3.0",
     "adaboost": "^1.0.2",
+    "algoliasearch": "^3.32.0",
     "audio-context": "^1.0.3",
     "audio-generator": "^2.1.2",
     "audio-loader": "^1.0.3",

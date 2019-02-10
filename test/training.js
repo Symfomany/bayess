@@ -89,6 +89,10 @@ classifier.learn("Met la BOF du film Harry Potter", "music");
 classifier.learn("Met la BOF du film Harry Potter", "music");
 classifier.learn("Ecouter un son de rock", "music");
 classifier.learn("Ecouter du son de rap", "music");
+classifier.learn("Ecouter la playlist de Simon", "music");
+classifier.learn("Ecouter l'album de Jira", "music");
+classifier.learn("Ecouter l'extrait de la chanson Encore une fois", "music");
+classifier.learn("Ecouter l'album du chanteur Poupée", "music");
 
 classifier.learn("Ecouter du Maître Gims", "music");
 classifier.learn("Ecouter les musiques de John Williams", "music");
