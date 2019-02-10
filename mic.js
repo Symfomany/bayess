@@ -15,7 +15,7 @@ const dataset = require("./dataset.json");
 const player = require("play-sound")((opts = {}));
 
 const classifier = bayes.fromJson(dataset);
-const spawn = require("child_process").spawn;
+// const spawn = require("child_process").spawn;
 
 /**
  * Set functions util
@@ -68,7 +68,7 @@ micInputStream.on("error", function(err) {
 });
 
 micInputStream.on("startComplete", function() {
-  spawn("python", ["/home/pi/pixel_ring/examples/respeaker_4mic_array.py"]);
+  // spawn("python", ["/home/pi/pixel_ring/examples/respeaker_4mic_array.py"]);
 
   gpiop.setup(7, gpio.DIR_OUT).then(() => {
     gpiop.write(7, true);
