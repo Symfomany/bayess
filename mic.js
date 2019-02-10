@@ -16,7 +16,7 @@ const player = require("play-sound")((opts = {}));
 
 const classifier = bayes.fromJson(dataset);
 const spawn = require("child_process").spawn;
-
+const randomFile = require('random-file')
 /**
  * Set functions util
  */
@@ -121,8 +121,6 @@ micInputStream.on("stopComplete", function () {
       console.log(`Catégorie: ${category}`);
 
 
-
-      const dir = '/home/pi/bayess/resources/email'
 
 
       if (category === "email") {
