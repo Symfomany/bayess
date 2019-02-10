@@ -9,9 +9,14 @@ player.play("./wakeup.wav", err => {
 console.log("Playing music");
 
 gpiop.setup(7, gpio.DIR_OUT).then(() => {
+  gpiop.write(7, true);
+  let intervalFunc = () => gpiop.write(7, true);
+  let intervalFuncTwo = () => gpiop.write(7, false);
+
+  setInterval(intervalFunc, 1500);
+  setInterval(intervalFuncTwo, 2000);
+
   console.log("Go GPIO");
 
-  gpiop.write(7, true);
-
-  setTimeout(() => gpiop.write(7, false), 5000);
+  setTimeout(() => gpiop.write(7, false), 7000);
 });
