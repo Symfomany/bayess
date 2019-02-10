@@ -12,6 +12,6 @@ console.log("Send 1 to Arduino");
 // const endBlink = () => {
 //   clearInterval(blinkInterval); // Stop blink intervals
 // };
-setTimeout(() => port.write("a"), 1000); //stop blinking after 5 seconds
+setTimeout(() => port.write("a"), 100); //stop blinking after 5 seconds
 
 setTimeout(() => true, 10000); //stop blinking after 5 seconds
