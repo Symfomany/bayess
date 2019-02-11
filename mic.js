@@ -228,7 +228,9 @@ micInputStream.on("stopComplete", function() {
       console.log(`Catégorie: ${category}`);
 
       if (category == "email") {
+        console.log("email va etre envoyé...");
         const res = extractPj(transcription);
+        console.log("extract terminé...");
 
         // if an pj
         if (res) {
