@@ -11,10 +11,13 @@ var transport = nodemailer.createTransport({
 });
 
 const mailOptions = {
-  from: "julien@meetserious.com",
+  from: "j.boyer69003@gmail.com",
   to: "zuzu38080@gmail.com",
-  subject: "Sending Email using Node.js & My Own Smart Speaker",
-  text: "That was easy!"
+  subject: "Message envoyé depuis mon enceinte intelligente 🏆",
+  text:
+    "Cet e-mail a été envoyé automatiquement depuis mon enceinte intelligente",
+  html:
+    "<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente 🥇</i></p><p>Bonne reception!</p>"
 };
 mailOptions.attachments = [
   {
