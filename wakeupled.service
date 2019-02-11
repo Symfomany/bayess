@@ -2,7 +2,7 @@
 Description=Wakeup LED Service
 
 [Service]
-WorkingDirectory=/home/pi/bayess/
+WorkingDirectory=/home/pi/pixel_ring/examples
 ExecStart=/usr/bin/python wakeup.py
 Restart=on-failure
 User=pi
