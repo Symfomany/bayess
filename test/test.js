@@ -3,7 +3,7 @@ const bayes = require("bayes");
 
 const dataset = require("../dataset.json");
 const contacts = require("./contacts.json");
-const pjs = require("./pj.json");
+const pjs = require("../pj.json");
 
 // const algoliasearch = require("algoliasearch");
 // var client = algoliasearch("CUVOFGREY1", "9c966706dd576d92e188c1de2a82bbdf");
