@@ -234,6 +234,7 @@ micInputStream.on("stopComplete", function() {
 
         // if an pj
         if (res) {
+          console.log("pj");
           console.log(res.path);
           // mailOptions.attachments = [
           //   {
