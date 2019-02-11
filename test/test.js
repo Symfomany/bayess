@@ -234,6 +234,12 @@ describe("Test on Bayesienne Training", () => {
       assert.equal("tel", cat);
     });
 
+    it("Send Email", () => {
+      const ph = "Envoie un email à Manu avec le document installation";
+      let cat = classifier.categorize(ph);
+      assert.equal("email", cat);
+    });
+
     it("Intent Email", () => {
       let cat = classifier.categorize("J'aimerais envoyer un email à Manuel!");
       assert.equal("email", cat);
