@@ -235,11 +235,11 @@ micInputStream.on("stopComplete", function() {
         // if an pj
         if (res) {
           console.log(res.path);
-          mailOptions.attachments = [
-            {
-              path: `./resources/pj/${res.path}`
-            }
-          ];
+          // mailOptions.attachments = [
+          //   {
+          //     path: `./resources/pj/${res.path}`
+          //   }
+          // ];
         }
         console.log("extract name...");
 
