@@ -1,5 +1,9 @@
 // export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/bayess/console.json"
 
+// Envoie un email à Julien pour lui dire que je serait absent demain à 13 heures
+// Envoie un email à Julien avec le document de la réunion pour qu'il prépare pour demain son rendez-vous.
+// Envoie un email à Simon avec le document client pour que tu apprenne du magamenet du client.
+
 const mic = require("mic"); // requires arecord or sox, see https://www.npmjs.com/package/mic
 // Imports the Google Cloud client library
 const speech = require("@google-cloud/speech");
