@@ -274,6 +274,7 @@ micInputStream.on("stopComplete", function() {
         let chosenFile = files[Math.floor(Math.random() * files.length)];
         player.play(`./resources/email/${chosenFile}`, err => {
           if (err) throw err;
+          process.exit();
         });
       } else {
         player.play("./ramener.mp3", err => {
