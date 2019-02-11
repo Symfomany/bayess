@@ -27,6 +27,33 @@ classifier.learn(
   "Expédie un e-mail à Julia pour lui dire que ce n'est pas grave pour hier",
   "email"
 );
+
+classifier.learn(
+  "Envoyer un e-mail à Simon avec les documents sécurité et client",
+  "email"
+);
+classifier.learn(
+  "Envoi un e-mail à Manu avec le document de la réunion",
+  "email"
+);
+
+classifier.learn(
+  "Envoi un e-mail à Julien avec les documents client et réunion",
+  "email"
+);
+
+classifier.learn(
+  "Envoi un e-mail à Julien avec la pièce jointe client réunion",
+  "email"
+);
+
+classifier.learn(
+  "Envoi un email à Manu avec la pièce jointe sécurité",
+  "email"
+);
+
+classifier.learn("Envoi un e-mail à Simon avec la PJ installation", "email");
+
 classifier.learn(
   "Envoyer un e-mail à Simon pour dire que je serais en avance demain",
   "email"
@@ -240,7 +267,10 @@ classifier.learn(
   "Envoyer un petit SMS à Simon:  La traduction c'est cool!",
   "sms"
 );
-classifier.learn("Envoie un SMS à Julien afin qu'il ne s'inquiète pas:  Tu es naz!", "sms");
+classifier.learn(
+  "Envoie un SMS à Julien afin qu'il ne s'inquiète pas:  Tu es naz!",
+  "sms"
+);
 
 classifier.learn("Envoyer un SMS à Manu:  Tu es naz!", "sms");
 
