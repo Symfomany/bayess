@@ -46,6 +46,7 @@ capitalizeFirstLetter = string =>
   string.charAt(0).toUpperCase() + string.slice(1);
 
 let extractPj = phrase => {
+  console.log("Extract PJ...");
   let regexPj =
     "(?:avec les? documents?|avec|en PJ|avec (la|en|les) pièces? jointes?)";
 
@@ -76,6 +77,9 @@ let extractPj = phrase => {
       }
     });
   }
+
+  console.log("Done...");
+  console.log(resultat);
 
   return resultat;
 };
@@ -243,6 +247,7 @@ micInputStream.on("stopComplete", function() {
           console.log(resTwo);
           mailOptions.to = resTwo.email;
           transport.sendMail(mailOptions, (error, info) => {
+            console.log("Email envoyé...");
             if (error) {
               console.log(error);
             } else {
