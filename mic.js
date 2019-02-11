@@ -82,9 +82,6 @@ let extractPj = phrase => {
     });
   }
 
-  console.log("Done...");
-  console.log(resultat);
-
   return resultat;
 };
 
