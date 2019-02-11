@@ -17,7 +17,26 @@ const player = require("play-sound")((opts = {}));
 
 const classifier = bayes.fromJson(dataset);
 const spawn = require("child_process").spawn;
-const randomFile = require('random-file')
+const nodemailer = require("nodemailer");
+const pjs = require("./pj.json");
+
+var transport = nodemailer.createTransport({
+  service: "gmail",
+  host: "smtp.gmail.com",
+  auth: {
+    user: "j.boyer69003@gmail.com",
+    pass: "djscrave93"
+  }
+});
+
+const mailOptions = {
+  from: "j.boyer69003@gmail.com",
+  to: "zuzu38080@gmail.com",
+  subject: "Message envoyé depuis mon enceinte intelligente 🏆",
+  text:
+    "Cet e-mail a été envoyé automatiquement depuis mon enceinte intelligente",
+  html: `<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente et comporte en PJ le document "client" ! 🥇</i></p><p>Bonne reception!</p>`
+};
 
 /**
  * Set functions util
@@ -25,6 +44,41 @@ const randomFile = require('random-file')
 
 capitalizeFirstLetter = string =>
   string.charAt(0).toUpperCase() + string.slice(1);
+
+let extractPj = phrase => {
+  let regexPj =
+    "(?:avec les? documents?|avec|en PJ|avec (la|en|les) pièces? jointes?)";
+
+  let regexPjComplete = new RegExp(`${regexPj}.*`, "gi");
+
+  const resOne = phrase.match(regexPjComplete);
+
+  resultat = null;
+  // match with PJ
+  if (resOne && resOne.length > 0) {
+    var mapObj = {
+      pj: "",
+      "pièce jointe": ""
+    };
+
+    let res = resOne[0]
+      .replace(
+        new RegExp(Object.keys(mapObj).join("|"), "gi"),
+        matched => mapObj[matched]
+      )
+      .trim();
+
+    pjs.forEach(pj => {
+      let regex = new RegExp(`${pj.name}`, "ig");
+
+      if (regex.test(res) == true) {
+        resultat = pj;
+      }
+    });
+  }
+
+  return resultat;
+};
 
 extractTxt = str => {
   // Dis à ... sans le que ...
@@ -108,15 +162,15 @@ const micInputStream = micInstance.getAudioStream();
 const outputFileStream = fs.WriteStream("./output.raw");
 micInputStream.pipe(outputFileStream);
 
-micInputStream.on("data", function (data) {
+micInputStream.on("data", function(data) {
   // console.log("Recieved Input Stream: " + data.length);
 });
 
-micInputStream.on("error", function (err) {
+micInputStream.on("error", function(err) {
   // cosole.log("Error in Input Stream: " + err);
 });
 
-micInputStream.on("startComplete", function () {
+micInputStream.on("startComplete", function() {
   spawn("python", ["/home/pi/pixel_ring/examples/respeaker_4mic_array.py"]);
 
   gpiop.setup(7, gpio.DIR_OUT).then(() => {
@@ -139,7 +193,7 @@ micInputStream.on("startComplete", function () {
   // console.log("Got SIGNAL startComplete");
 });
 
-micInputStream.on("stopComplete", function () {
+micInputStream.on("stopComplete", function() {
   // console.log("Got SIGNAL stopComplete");
   const fileName = "./output.raw";
   const file = fs.readFileSync(fileName);
@@ -169,40 +223,61 @@ micInputStream.on("stopComplete", function () {
       let category = classifier.categorize(transcription.trim());
       console.log(`Catégorie: ${category}`);
 
-
-
       if (category == "email") {
-        const files = fs.readdirSync('./resources/email/')
-        let chosenFile = files[Math.floor(Math.random() * files.length)]
-        player.play(`./resources/email/${chosenFile}`, err => {
-          if (err) throw err;
-        });
-      }
-      else if (category == "sms") {
-        const files = fs.readdirSync('./resources/sms/')
-        let chosenFile = files[Math.floor(Math.random() * files.length)]
-        player.play(`./resources/email/${chosenFile}`, err => {
-          if (err) throw err;
-        });
+        const res = extractPj(transcription);
 
-      }
-      else {
+        // if an pj
+        if (res) {
+          mailOptions.attachments = [
+            {
+              path: `./resources/pj/${res.path}`
+            }
+          ];
+        }
+
+        const resTwo = extractName(transcription);
+
+        //is a person
+        if (resTwo) {
+          mailOptions.to = resTwo.email;
+          transport.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("Email sent: " + info.response);
+            }
+
+            conv.ask("Ok pour l'envois email");
+          });
+        }
+
+        const files = fs.readdirSync("./resources/email/");
+        let chosenFile = files[Math.floor(Math.random() * files.length)];
+        player.play(`./resources/email/${chosenFile}`, err => {
+          if (err) throw err;
+        });
+      } else if (category == "sms") {
+        const files = fs.readdirSync("./resources/sms/");
+        let chosenFile = files[Math.floor(Math.random() * files.length)];
+        player.play(`./resources/email/${chosenFile}`, err => {
+          if (err) throw err;
+        });
+      } else {
         player.play("./ramener.mp3", err => {
           if (err) throw err;
         });
       }
-
     })
     .catch(err => {
       console.error("ERROR:", err);
     });
 });
 
-micInputStream.on("silence", function () {
+micInputStream.on("silence", function() {
   // console.log("Got SIGNAL silence");
 });
 
-micInputStream.on("processExitComplete", function () {
+micInputStream.on("processExitComplete", function() {
   // console.log("Got SIGNAL processExitComplete");
 });
 

@@ -1,4 +1,3 @@
-const contacts = require("./contacts.json");
 const nodemailer = require("nodemailer");
 
 var transport = nodemailer.createTransport({
@@ -16,8 +15,7 @@ const mailOptions = {
   subject: "Message envoyé depuis mon enceinte intelligente 🏆",
   text:
     "Cet e-mail a été envoyé automatiquement depuis mon enceinte intelligente",
-  html:
-    "<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente 🥇</i></p><p>Bonne reception!</p>"
+  html: `<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente et comporte en PJ le document "client" ! 🥇</i></p><p>Bonne reception!</p>`
 };
 mailOptions.attachments = [
   {
