@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "installation",
+    "path": "installation.pdf"
+  },
+  {
+    "id": 2,
+    "name": "client",
+    "path": "client.pdf"
+  },
+  {
+    "id": 3,
+    "name": "sécurité",
+    "path": "securite.pdf"
+  },
+  {
+    "id": 4,
+    "name": "réunion",
+    "path": "reunion.pdf"
+  }
+]
