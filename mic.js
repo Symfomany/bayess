@@ -36,11 +36,10 @@ let transport = nodemailer.createTransport({
 let mailOptions = {
   from: "j.boyer69003@gmail.com",
   to: "zuzu38080@gmail.com",
-  subject: "Message envoyé depuis mon enceinte intelligente 🏆",
+  subject: "Message envoyé depuis mon enceinte intelligente",
   // text:
   //   "Cet e-mail a été envoyé automatiquement depuis mon enceinte intelligente",
-  html: `<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente et comporte en PJ le document "client" ! 🥇</i></p>
-    <p>Voici son contenu</p>`
+  html: `<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente Cridon et comporte en PJ le document  !</i></p>`
 };
 
 /**
@@ -171,15 +170,15 @@ const micInputStream = micInstance.getAudioStream();
 const outputFileStream = fs.WriteStream("./output.raw");
 micInputStream.pipe(outputFileStream);
 
-micInputStream.on("data", function(data) {
+micInputStream.on("data", function (data) {
   // console.log("Recieved Input Stream: " + data.length);
 });
 
-micInputStream.on("error", function(err) {
+micInputStream.on("error", function (err) {
   // cosole.log("Error in Input Stream: " + err);
 });
 
-micInputStream.on("startComplete", function() {
+micInputStream.on("startComplete", function () {
   spawn("python", ["/home/pi/pixel_ring/examples/respeaker_4mic_array.py"]);
 
   gpiop.setup(7, gpio.DIR_OUT).then(() => {
@@ -202,7 +201,7 @@ micInputStream.on("startComplete", function() {
   // console.log("Got SIGNAL startComplete");
 });
 
-micInputStream.on("stopComplete", function() {
+micInputStream.on("stopComplete", function () {
   // console.log("Got SIGNAL stopComplete");
   const fileName = "./output.raw";
   const file = fs.readFileSync(fileName);
@@ -233,9 +232,7 @@ micInputStream.on("stopComplete", function() {
       console.log(`Catégorie: ${category}`);
 
       if (category == "email") {
-        console.log("email va etre envoyé...");
         const res = extractPj(transcription);
-        console.log("extract terminé...");
 
         // if an pj
         if (res) {
@@ -247,18 +244,12 @@ micInputStream.on("stopComplete", function() {
             }
           ];
         }
-        console.log("extract name...");
 
         const resTwo = extractName(transcription);
 
         //is a person
         if (resTwo) {
-          console.log(resTwo);
           mailOptions.to = resTwo.email;
-          console.log("email");
-          console.log(resTwo.email);
-          console.log(mailOptions);
-
           mailOptions.html += `<p><i>
             ${extractTxt(transcription)}
           </i></p>`;
@@ -267,7 +258,6 @@ micInputStream.on("stopComplete", function() {
             console.log("Email en cours d'envois...");
             console.log(info);
             if (error) {
-              console.log(error);
               throw error;
             } else {
               console.info("Email envoyé!! ");
@@ -300,11 +290,11 @@ micInputStream.on("stopComplete", function() {
     });
 });
 
-micInputStream.on("silence", function() {
+micInputStream.on("silence", function () {
   // console.log("Got SIGNAL silence");
 });
 
-micInputStream.on("processExitComplete", function() {
+micInputStream.on("processExitComplete", function () {
   // console.log("Got SIGNAL processExitComplete");
 });
 

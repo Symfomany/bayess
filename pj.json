@@ -18,5 +18,10 @@
     "id": 4,
     "name": "réunion",
     "path": "reunion.pdf"
+  },
+  {
+    "id": 5,
+    "name": "pacte d'associés",
+    "path": "pact.doc"
   }
 ]
