@@ -260,7 +260,7 @@ micInputStream.on("stopComplete", function() {
           </i></p>`;
 
           transport.sendMail(mailOptions, (error, info) => {
-            console.log("Email en coirs d'envois...");
+            console.log("Email en cours d'envois...");
             console.log(info);
             if (error) {
               console.log(error);
