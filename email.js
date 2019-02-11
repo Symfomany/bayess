@@ -16,7 +16,11 @@ const mailOptions = {
   subject: "Sending Email using Node.js & My Own Smart Speaker",
   text: "That was easy!"
 };
-
+mailOptions.attachments = [
+  {
+    path: "./resources/pj/client.pdf"
+  }
+];
 transport.sendMail(mailOptions, (error, info) => {
   if (error) {
     console.log(error);
