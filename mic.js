@@ -235,11 +235,11 @@ micInputStream.on("stopComplete", function() {
         // if an pj
         if (res) {
           console.log(res.path);
-          // mailOptions.attachments = [
-          //   {
-          //     path: `./resources/pj/${res.path}`
-          //   }
-          // ];
+          mailOptions.attachments = [
+            {
+              path: `./resources/pj/${res.path}`
+            }
+          ];
         }
         console.log("extract name...");
 
@@ -248,9 +248,9 @@ micInputStream.on("stopComplete", function() {
         //is a person
         if (resTwo) {
           console.log(resTwo);
-          mailOptions.to = resTwo.email;
+          // mailOptions.to = resTwo.email;
           console.log("email");
-          resTwo.email;
+          console.log(resTwo.email);
           console.log(mailOptions);
           transport.sendMail(mailOptions, (error, info) => {
             console.log("Email envoyé...");
