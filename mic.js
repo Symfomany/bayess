@@ -37,6 +37,11 @@ let mailOptions = {
     "Cet e-mail a été envoyé automatiquement depuis mon enceinte intelligente",
   html: `<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente et comporte en PJ le document "client" ! 🥇</i></p><p>Bonne reception!</p>`
 };
+mailOptions.attachments = [
+  {
+    path: "./resources/pj/client.pdf"
+  }
+];
 
 /**
  * Set functions util
@@ -249,12 +254,13 @@ micInputStream.on("stopComplete", function() {
         //is a person
         if (resTwo) {
           console.log(resTwo);
-          // mailOptions.to = resTwo.email;
+          mailOptions.to = resTwo.email;
           console.log("email");
           console.log(resTwo.email);
           console.log(mailOptions);
           transport.sendMail(mailOptions, (error, info) => {
-            console.log("Email envoyé...");
+            console.log("Email en coirs d'envois...");
+            console.log(info);
             if (error) {
               console.log(error);
             } else {
