@@ -29,6 +29,10 @@ classifier.learn(
   "Envoie un email à Monique avec le document sur la fibre",
   "email"
 );
+classifier.learn(
+  "Envoie email à Bertrand pour lui dire que la pluie après le beau temps",
+  "email"
+);
 
 classifier.learn("Envois stp un bel email à Bertrand maintenant", "email");
 classifier.learn("Envois l'email à Bertrand maintenant", "email");
