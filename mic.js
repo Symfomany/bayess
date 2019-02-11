@@ -111,7 +111,7 @@ extractTxt = str => {
 let extractName = phrase => {
   let resultat = null;
   contacts.forEach(user => {
-    let regex = new RegExp(`(?: à ${user.name})`, "ig");
+    let regex = new RegExp(`(?:${user.name})`, "ig");
     let res = phrase.match(user.name);
     if (res) {
       resultat = res[0];
