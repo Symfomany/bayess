@@ -1,19 +1,19 @@
 [
   {
     "id": 1,
-    "name": "Simon Thenpz",
+    "name": "Simon",
     "tel": "0674585648",
     "email": "simon@free.fr"
   },
   {
     "id": 2,
-    "name": "Manuel Briand",
+    "name": "Manuel",
     "tel": "0273515234",
     "email": "manu@free.fr"
   },
   {
     "id": 3,
-    "name": "Julien Boyer",
+    "name": "Julien",
     "tel": "0514555637",
     "email": "j.boyer69003@gmail.com"
   }
