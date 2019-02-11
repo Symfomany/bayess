@@ -20,7 +20,7 @@ const spawn = require("child_process").spawn;
 const nodemailer = require("nodemailer");
 const pjs = require("./pj.json");
 
-var transport = nodemailer.createTransport({
+let transport = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
   auth: {
@@ -29,7 +29,7 @@ var transport = nodemailer.createTransport({
   }
 });
 
-const mailOptions = {
+let mailOptions = {
   from: "j.boyer69003@gmail.com",
   to: "zuzu38080@gmail.com",
   subject: "Message envoyé depuis mon enceinte intelligente 🏆",
@@ -249,6 +249,9 @@ micInputStream.on("stopComplete", function() {
         if (resTwo) {
           console.log(resTwo);
           mailOptions.to = resTwo.email;
+          console.log("emil");
+          resTwo.email;
+          console.log(mailOptions);
           transport.sendMail(mailOptions, (error, info) => {
             console.log("Email envoyé...");
             if (error) {
