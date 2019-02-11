@@ -33,9 +33,10 @@ let mailOptions = {
   from: "j.boyer69003@gmail.com",
   to: "zuzu38080@gmail.com",
   subject: "Message envoyé depuis mon enceinte intelligente 🏆",
-  text:
-    "Cet e-mail a été envoyé automatiquement depuis mon enceinte intelligente",
-  html: `<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente et comporte en PJ le document "client" ! 🥇</i></p><p>Bonne reception!</p>`
+  // text:
+  //   "Cet e-mail a été envoyé automatiquement depuis mon enceinte intelligente",
+  html: `<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente et comporte en PJ le document "client" ! 🥇</i></p>
+    <p>Voici son contenu</p>`
 };
 
 /**
@@ -253,6 +254,11 @@ micInputStream.on("stopComplete", function() {
           console.log("email");
           console.log(resTwo.email);
           console.log(mailOptions);
+
+          mailOptions.html += `<i>
+            ${extractTxt(transcription)}
+          </i>`;
+
           transport.sendMail(mailOptions, (error, info) => {
             console.log("Email en coirs d'envois...");
             console.log(info);
