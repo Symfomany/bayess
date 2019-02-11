@@ -258,17 +258,17 @@ micInputStream.on("stopComplete", function() {
             console.log(info);
             if (error) {
               console.log(error);
+              throw error;
             } else {
               console.log("Email sent: " + info.response);
+              const files = fs.readdirSync("./resources/email/");
+              let chosenFile = files[Math.floor(Math.random() * files.length)];
+              player.play(`./resources/email/${chosenFile}`, err => {
+                if (err) throw err;
+              });
             }
           });
         }
-
-        // const files = fs.readdirSync("./resources/email/");
-        // let chosenFile = files[Math.floor(Math.random() * files.length)];
-        // player.play(`./resources/email/${chosenFile}`, err => {
-        //   if (err) throw err;
-        // });
       } else if (category == "sms") {
         const files = fs.readdirSync("./resources/sms/");
         let chosenFile = files[Math.floor(Math.random() * files.length)];
