@@ -3,6 +3,8 @@ const bayes = require("bayes");
 
 const dataset = require("../dataset.json");
 const contacts = require("./contacts.json");
+const pjs = require("./pj.json");
+
 // const algoliasearch = require("algoliasearch");
 // var client = algoliasearch("CUVOFGREY1", "9c966706dd576d92e188c1de2a82bbdf");
 // var index = client.initIndex("contacts");
@@ -12,7 +14,7 @@ console.log("*****************************************");
 
 const classifier = bayes.fromJson(dataset);
 
-before(function () { });
+before(function() {});
 
 /**
  * SUJET + VERBE d'ÉTAT + ADVERBE + ADJECTIF
@@ -24,13 +26,48 @@ before(function () { });
 capitalizeFirstLetter = string =>
   string.charAt(0).toUpperCase() + string.slice(1);
 
+let extractPj = phrase => {
+  let regexPj =
+    "(?:avec les? documents?|avec|en PJ|avec (la|en|les) pièces? jointes?)";
+
+  let regexPjComplete = new RegExp(`${regexPj}.*`, "gi");
+
+  const resOne = phrase.match(regexPjComplete);
+
+  resultat = null;
+  // match with PJ
+  if (resOne && resOne.length > 0) {
+    var mapObj = {
+      pj: "",
+      "pièce jointe": ""
+    };
+
+    let res = resOne[0]
+      .replace(
+        new RegExp(Object.keys(mapObj).join("|"), "gi"),
+        matched => mapObj[matched]
+      )
+      .trim();
+
+    pjs.forEach(pj => {
+      let regex = new RegExp(`${pj.name}`, "ig");
+
+      if (regex.test(res) == true) {
+        resultat = pj;
+      }
+    });
+  }
+
+  return resultat;
+};
+
 let extractName = phrase => {
   let regex = new RegExp(`${phrase}`, "ig");
 
   let resultat = null;
-  contacts.forEach(name => {
-    if (regex.test(name) == true) {
-      resultat = name;
+  contacts.forEach(user => {
+    if (regex.test(user.name) == true) {
+      resultat = user;
     }
   });
 
@@ -319,6 +356,13 @@ describe("Test on Bayesienne Training", () => {
 
     it("Intent Email", () => {
       let cat = classifier.categorize(
+        "Envoi un e-mail à Manu avec le document de la sécurité"
+      );
+      assert.equal("email", cat);
+    });
+
+    it("Intent Email", () => {
+      let cat = classifier.categorize(
         "Envois un email de newsletter à Pauline"
       );
       assert.equal("email", cat);
@@ -424,7 +468,6 @@ describe("Test on Bayesienne Training", () => {
       );
       assert.equal("sms", cat);
     });
-
 
     it("Intent SMS", () => {
       let cat = classifier.categorize(
@@ -813,6 +856,53 @@ describe("Test on Bayesienne Training", () => {
       const resultat = extractMusic(ph);
       if (resultat) {
         assert.equal(resultat, "Mickael Jackson");
+      }
+    });
+  });
+
+  describe("Test Extract PJ", () => {
+    it("Intent Email", () => {
+      let ph = "Envoi un e-mail  à Daniel avec en pièce jointe l'installation";
+      let cat = classifier.categorize(ph);
+      assert.equal("email", cat);
+
+      const res = extractPj(ph);
+      if (res) {
+        assert.equal("installation", res.name);
+      }
+    });
+
+    it("Intent Email", () => {
+      let ph = "Envoi un e-mail à François avec en PJ la réunion";
+      let cat = classifier.categorize(ph);
+      assert.equal("email", cat);
+
+      const res = extractPj(ph);
+      if (res) {
+        assert.equal("réunion", res.name);
+      }
+    });
+
+    it("Intent Email", () => {
+      let ph = "Envoi un e-mail à François avec en PJ le client";
+      let cat = classifier.categorize(ph);
+      assert.equal("email", cat);
+
+      const res = extractPj(ph);
+      if (res) {
+        assert.equal("client", res.name);
+      }
+    });
+
+    it("Intent Email", () => {
+      let ph =
+        "Envoi un e-mail important à Kevin avec en pièce jointe la sécurité";
+      let cat = classifier.categorize(ph);
+      assert.equal("email", cat);
+
+      const res = extractPj(ph);
+      if (res) {
+        assert.equal("sécurité", res.name);
       }
     });
   });
