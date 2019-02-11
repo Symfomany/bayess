@@ -37,11 +37,6 @@ let mailOptions = {
     "Cet e-mail a été envoyé automatiquement depuis mon enceinte intelligente",
   html: `<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente et comporte en PJ le document "client" ! 🥇</i></p><p>Bonne reception!</p>`
 };
-mailOptions.attachments = [
-  {
-    path: "./resources/pj/client.pdf"
-  }
-];
 
 /**
  * Set functions util
@@ -241,11 +236,11 @@ micInputStream.on("stopComplete", function() {
         if (res) {
           console.log("pj");
           console.log(res.path);
-          // mailOptions.attachments = [
-          //   {
-          //     path: `./resources/pj/${res.path}`
-          //   }
-          // ];
+          mailOptions.attachments = [
+            {
+              path: `./resources/pj/${res.path}`
+            }
+          ];
         }
         console.log("extract name...");
 
