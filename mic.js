@@ -17,6 +17,7 @@ const player = require("play-sound")((opts = {}));
 
 const classifier = bayes.fromJson(dataset);
 const spawn = require("child_process").spawn;
+const randomFile = require('random-file')
 
 /**
  * Set functions util
@@ -107,15 +108,15 @@ const micInputStream = micInstance.getAudioStream();
 const outputFileStream = fs.WriteStream("./output.raw");
 micInputStream.pipe(outputFileStream);
 
-micInputStream.on("data", function(data) {
+micInputStream.on("data", function (data) {
   // console.log("Recieved Input Stream: " + data.length);
 });
 
-micInputStream.on("error", function(err) {
+micInputStream.on("error", function (err) {
   // cosole.log("Error in Input Stream: " + err);
 });
 
-micInputStream.on("startComplete", function() {
+micInputStream.on("startComplete", function () {
   spawn("python", ["/home/pi/pixel_ring/examples/respeaker_4mic_array.py"]);
 
   gpiop.setup(7, gpio.DIR_OUT).then(() => {
@@ -138,7 +139,7 @@ micInputStream.on("startComplete", function() {
   // console.log("Got SIGNAL startComplete");
 });
 
-micInputStream.on("stopComplete", function() {
+micInputStream.on("stopComplete", function () {
   // console.log("Got SIGNAL stopComplete");
   const fileName = "./output.raw";
   const file = fs.readFileSync(fileName);
@@ -168,22 +169,40 @@ micInputStream.on("stopComplete", function() {
       let category = classifier.categorize(transcription.trim());
       console.log(`Catégorie: ${category}`);
 
-      if (category === "music") {
+
+
+      if (category == "email") {
+        const files = fs.readdirSync('./resources/email/')
+        let chosenFile = files[Math.floor(Math.random() * files.length)]
+        player.play(`./resources/email/${chosenFile}`, err => {
+          if (err) throw err;
+        });
+      }
+      else if (category == "sms") {
+        const files = fs.readdirSync('./resources/sms/')
+        let chosenFile = files[Math.floor(Math.random() * files.length)]
+        player.play(`./resources/email/${chosenFile}`, err => {
+          if (err) throw err;
+        });
+
+      }
+      else {
         player.play("./ramener.mp3", err => {
           if (err) throw err;
         });
       }
+
     })
     .catch(err => {
       console.error("ERROR:", err);
     });
 });
 
-micInputStream.on("silence", function() {
+micInputStream.on("silence", function () {
   // console.log("Got SIGNAL silence");
 });
 
-micInputStream.on("processExitComplete", function() {
+micInputStream.on("processExitComplete", function () {
   // console.log("Got SIGNAL processExitComplete");
 });
 

@@ -12,7 +12,7 @@ console.log("*****************************************");
 
 const classifier = bayes.fromJson(dataset);
 
-before(function() {});
+before(function () { });
 
 /**
  * SUJET + VERBE d'ÉTAT + ADVERBE + ADJECTIF
@@ -417,6 +417,14 @@ describe("Test on Bayesienne Training", () => {
       );
       assert.equal("sms", cat);
     });
+
+    it("Intent SMS", () => {
+      let cat = classifier.categorize(
+        "Envoie un texto à Pissune pour lui dire que demain c'est mardi 2 janvier"
+      );
+      assert.equal("sms", cat);
+    });
+
 
     it("Intent SMS", () => {
       let cat = classifier.categorize(
