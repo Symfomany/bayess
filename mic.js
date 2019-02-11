@@ -245,8 +245,6 @@ micInputStream.on("stopComplete", function() {
 
         const resTwo = extractName(transcription);
 
-        console.log(res.resTwo);
-
         //is a person
         if (resTwo) {
           console.log(resTwo);
