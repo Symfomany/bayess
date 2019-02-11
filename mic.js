@@ -255,9 +255,9 @@ micInputStream.on("stopComplete", function() {
           console.log(resTwo.email);
           console.log(mailOptions);
 
-          mailOptions.html += `<i>
+          mailOptions.html += `<p><i>
             ${extractTxt(transcription)}
-          </i>`;
+          </i></p>`;
 
           transport.sendMail(mailOptions, (error, info) => {
             console.log("Email en coirs d'envois...");
