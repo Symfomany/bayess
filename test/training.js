@@ -12,6 +12,13 @@ classifier.learn("Envois l'email à Manu maintenant", "email");
 classifier.learn("Envoyé un email demain après-midi à Thenoz", "email");
 classifier.learn("Envois un email à manu@free.fr", "email");
 classifier.learn(
+  "Envoie un email Julien avec le document de la sécurité",
+  "email"
+);
+
+classifier.learn("Envoie un email Simon avec la PJ sur la réunion", "email");
+
+classifier.learn(
   "Ecris un email à Manuel Briand pour lui dire que c'est bon on a les droits",
   "email"
 );
