@@ -4,6 +4,7 @@ const mic = require("mic"); // requires arecord or sox, see https://www.npmjs.co
 // Imports the Google Cloud client library
 const speech = require("@google-cloud/speech");
 const fs = require("fs");
+const contacts = require("./contacts.json");
 
 const client = new speech.SpeechClient();
 const gpio = require("rpi-gpio");
@@ -46,6 +47,53 @@ extractTxt = str => {
   }
 
   return matchObj ? capitalizeFirstLetter(matchObj[0]).trim() : null;
+};
+
+let extractName = phrase => {
+  let regex = new RegExp(`${phrase}`, "ig");
+
+  let resultat = null;
+  contacts.forEach(name => {
+    if (regex.test(name) == true) {
+      resultat = name;
+    }
+  });
+
+  return resultat;
+};
+
+let extractMusic = phrase => {
+  let regexTrack = new RegExp(`/(?:la musique|la chanson|L'extrait de)/`, "ig");
+  let regexTrackComplete = new RegExp(
+    `/(?:la musique|la chanson|L'extrait de).*/`,
+    "ig"
+  );
+
+  let regexAlbum = new RegExp(
+    `/(?:L'album|la bof|une chanson de|la playlist|du cd).*/`,
+    "ig"
+  );
+
+  let regexChanteurCompositeur = new RegExp(
+    "(?:Le chanteur|la chanteuse|la musique de|une chanson de|une musique de|les musiques de|la playlist de|les chansons de|un son de)",
+    "ig"
+  );
+  let regexChanteurCompositeurComplete = new RegExp(
+    `${regexChanteurCompositeur}.*`,
+    "gi"
+  );
+
+  const resOne = phrase.match(regexChanteurCompositeurComplete);
+  const resTwo = phrase.match(regexTrackComplete);
+
+  if (resTwo && resTwo.length > 0) {
+    return resTwo[0].replace(regexTrack, "").trim();
+  }
+
+  if (resOne && resOne.length > 0) {
+    return resOne[0].replace(regexChanteurCompositeur, "").trim();
+  }
+  return null;
 };
 
 const micInstance = mic({
