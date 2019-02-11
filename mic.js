@@ -114,7 +114,7 @@ let extractName = phrase => {
     let regex = new RegExp(`(?:${user.name})`, "ig");
     let res = phrase.match(user.name);
     if (res) {
-      resultat = res[0];
+      resultat = user;
     }
   });
 
