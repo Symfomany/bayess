@@ -183,7 +183,7 @@ micInputStream.on("startComplete", function() {
           micInstance.stop();
           gpiop.write(7, false);
           gpiop.write(8, true);
-        }, 5000);
+        }, 8000);
       })
       .catch(err => {
         console.log("Error: ", err.toString());
