@@ -112,9 +112,9 @@ let extractName = phrase => {
   let regex = new RegExp(`${phrase}`, "ig");
 
   let resultat = null;
-  contacts.forEach(name => {
-    if (regex.test(name) == true) {
-      resultat = name;
+  contacts.forEach(user => {
+    if (regex.test(user.name) == true) {
+      resultat = user;
     }
   });
 
@@ -241,8 +241,11 @@ micInputStream.on("stopComplete", function() {
             }
           ];
         }
+        console.log("extract name...");
 
         const resTwo = extractName(transcription);
+
+        console.log(res.resTwo);
 
         //is a person
         if (resTwo) {
