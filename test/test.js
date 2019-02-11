@@ -235,6 +235,12 @@ describe("Test on Bayesienne Training", () => {
     });
 
     it("Send Email", () => {
+      const ph = " envoie un email à Julien sur le document de l'installation";
+      let cat = classifier.categorize(ph);
+      assert.equal("email", cat);
+    });
+
+    it("Send Email", () => {
       const ph = "Envoie un email à Manu avec le document installation";
       let cat = classifier.categorize(ph);
       assert.equal("email", cat);
