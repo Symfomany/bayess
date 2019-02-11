@@ -228,6 +228,7 @@ micInputStream.on("stopComplete", function() {
 
         // if an pj
         if (res) {
+          console.log(res.path);
           mailOptions.attachments = [
             {
               path: `./resources/pj/${res.path}`
@@ -239,6 +240,7 @@ micInputStream.on("stopComplete", function() {
 
         //is a person
         if (resTwo) {
+          console.log(resTwo);
           mailOptions.to = resTwo.email;
           transport.sendMail(mailOptions, (error, info) => {
             if (error) {
