@@ -25,6 +25,10 @@ const nodemailer = require("nodemailer");
 const pjs = require("./pj.json");
 
 
+const SerialPort = require("serialport");
+const port = new SerialPort("/dev/ttyACM0", { baudRate: 9600 }); // 256000
+
+
 let transport = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
@@ -228,6 +232,8 @@ micInputStream.on("stopComplete", function () {
       console.log(`Transcription: ${transcription}`);
       let category = classifier.categorize(transcription.trim());
       console.log(`Catégorie: ${category}`);
+      //light
+      setTimeout(() => port.write("b"), 1000); //stop blinking after 5 seconds
 
       if (category == "email") {
         const res = extractPj(transcription);
