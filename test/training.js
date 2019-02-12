@@ -3,6 +3,28 @@ const classifier = bayes();
 const fs = require("fs");
 
 /**
+ * 
+ */
+classifier.learn(
+  "éteint la lumière et envoi un email à Phillipe afin de lui dire que je serai absent demain pour la réunion",
+  "ferme"
+);
+classifier.learn(
+  "éteint la lumière et envoi un email à Tibo afin de lui dire que je serai absent demain pour la réunion",
+  "ferme"
+);
+classifier.learn(
+  "ferme la lumière et envoi un email à Julien afin de lui dire que je serai absent demain pour la réunion",
+  "ferme"
+);
+classifier.learn(
+  "fermes la lumière et envoie un email à Manon afin de lui dire que je serai absent demain pour la réunion",
+  "ferme"
+);
+
+
+
+/**
  * Training for email
  */
 classifier.learn(

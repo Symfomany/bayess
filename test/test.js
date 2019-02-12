@@ -14,7 +14,7 @@ console.log("*****************************************");
 
 const classifier = bayes.fromJson(dataset);
 
-before(function() {});
+before(function () { });
 
 /**
  * SUJET + VERBE d'ÉTAT + ADVERBE + ADJECTIF
@@ -686,6 +686,21 @@ describe("Test on Bayesienne Training", () => {
       );
       assert.equal("music", cat);
     });
+
+    it("Ferme", () => {
+      let cat = classifier.categorize(
+        "éteint la lumière et envoi un email à Julien afin de lui dire que je serai absent demain pour la réunion"
+      );
+      assert.equal("ferme", cat);
+    });
+
+    it("Ferme", () => {
+      let cat = classifier.categorize(
+        "ferme la lumière et envoi un email à Julien afin de lui dire que je serai absent demain pour la réunion"
+      );
+      assert.equal("ferme", cat);
+    });
+
   });
 
   describe("Test compléments", () => {

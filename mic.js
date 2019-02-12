@@ -233,9 +233,30 @@ micInputStream.on("stopComplete", function () {
       let category = classifier.categorize(transcription.trim());
       console.log(`Catégorie: ${category}`);
       //light
-      setTimeout(() => port.write("a"), 1000); //stop blinking after 5 seconds
 
+      if (category == "ferme") {
+        mailOptions.to = "zuzu38080@gmail.com";
+
+        setTimeout(() => port.write("b"), 1000); //stop blinking after 5 seconds
+        mailOptions.html += `<p><i>
+          Je serai absent demain pour la réunion
+        </i></p>`;
+
+        transport.sendMail(mailOptions, (error, info) => {
+          console.log("Email en cours d'envois...");
+          console.log(info);
+          if (error) {
+            throw error;
+          } else {
+            console.info("Email envoyé!! ");
+            process.exit();
+          }
+        });
+
+      }
       if (category == "email") {
+        setTimeout(() => port.write("a"), 1000); //stop blinking after 5 seconds
+
         const res = extractPj(transcription);
 
         // if an pj
