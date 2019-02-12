@@ -6,7 +6,7 @@ const port = new SerialPort("/dev/ttyACM0", { baudRate: 9600 }); // 256000
 player.play("./wakeup.wav");
 console.log("Playing music");
 
-setTimeout(() => port.write("b"), 2000); //stop blinking after 5 seconds
+setTimeout(() => port.write("b"), 1000); //stop blinking after 5 seconds
 setTimeout(() => process.exit(), 20000); //stop blinking after 5 seconds
 
 // // var gpio = require("gpio");
