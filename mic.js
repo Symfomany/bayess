@@ -24,6 +24,7 @@ const spawn = require("child_process").spawn;
 const nodemailer = require("nodemailer");
 const pjs = require("./pj.json");
 
+
 let transport = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
@@ -39,7 +40,7 @@ let mailOptions = {
   subject: "Message envoyé depuis mon enceinte intelligente",
   // text:
   //   "Cet e-mail a été envoyé automatiquement depuis mon enceinte intelligente",
-  html: `<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon <i>enceinte intelligente Cridon et comporte en PJ le document  !</i></p>`
+  html: `<p>Bonjour</p><p>Cet <b>e-mail</b> a été envoyé automatiquement depuis mon enceinte intelligente Cridon et comporte en PJ le document  !</p>`
 };
 
 /**
