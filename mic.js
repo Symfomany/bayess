@@ -233,7 +233,7 @@ micInputStream.on("stopComplete", function () {
       let category = classifier.categorize(transcription.trim());
       console.log(`Catégorie: ${category}`);
       //light
-      setTimeout(() => port.write("b"), 1000); //stop blinking after 5 seconds
+      setTimeout(() => port.write("a"), 1000); //stop blinking after 5 seconds
 
       if (category == "email") {
         const res = extractPj(transcription);
